@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<html>
+  <style>
+    .upload-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+
+
+.upload-button  {
+  background-color: #01579B;
+  color: #fff;
+  padding: 5px 10px; 
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  border: none;
+  border-radius: 5px;
+  ;
+}
+
+.upload-button:hover {
+  background-color: #559af5;
+  ;
+}
+
+.upload-button:active {
+  background-color: #539cf0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  ;
+
+}
+     .top-bar {
+        background-color: #01579B;
+        color: #FFFFFF;
+        padding: 5px;
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .top-bar .title {
+        font-size: 2rem;
+        margin-left: 290px;
+        font-weight: 600;
+    }
+    .top-bar .icons {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+    .top-bar .icons img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .top-bar .icons img:hover {
+        transform: scale(1.3);
+    }
+
+ 
+
+    .top-bar .icons .notification {
+        position: relative;
+    }
+
+    .top-bar .icons .notification span {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        background-color: #0dff00;
+        border-radius: 50%;
+    }
+
+    .sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  background-color: #2C384A;
+  color: #FFFFFF;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-width: thin; /* for Firefox */
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* for IE and Edge */
+}
+
+.sidebar .logo {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.sidebar img {
+  width: 170px;
+  margin-bottom: 1rem;
+}
+
+.sidebar nav {
+  flex-grow: 1;
+  margin-top: 2rem;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0.3rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar nav a:hover {
+  color: #79aefd;
+}
+
+.sidebar nav a img {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  margin-top: 20px;
+}
+
+.sidebar nav a span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+    .main-content {
+        margin-left: 260px;
+        padding-left: 40px;
+        padding-right: 20px;
+        padding-bottom: 70px;
+        margin-top: 1px;
+    }
+
+    .card {
+        background-color: #FFFFFF;
+        padding: 1rem;
+        border: 1px solid #CCCCCC;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h2 {
+        margin-top: 0;
+    }
+
+    #chatheadsnotif {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #chatheadsnotif:hover {
+    transform: scale(1.2);
+  }
+
+  #chatheadsnotif.expanded {
+    transform: scale(1.5);
+  }
+
+  #chatheadsnotif.expanded #chatheads {
+    width: 80px;
+    height: 80px;
+  }
+
+  #chatheadsnotif.expanded .absolute {
+    bottom: -10px;
+    right: -10px;
+  }
+    
+  </style>
+<style>
+  #book-icon {
+  transition: transform 0.5s; /* add transition effect */
+}
+
+#book-icon:hover {
+  transform: scale(1.1); /* scale up by 10% on hover */
+}
+
+body {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+:root {
+  scrollbar-width: none !important;
+}
+
+
+
+
+.search-bar {
+  width: 300px;
+  position: absolute;
+  top: 50; /* changed to 0 to make it on top */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3; /* added to make it on top of everything */
+}
+
+#search-input {
+  flex: 2;
+  width: 400px;
+  padding: 10px;
+  color: black;
+  font-size: 12px;
+  border: none;
+  border-radius: 10px 10px 10px 10px;
+}
+
+
+
+
+.suggestions {
+  position: absolute;
+  top: 35px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+  display: none;
+  color: black;
+  z-index: 3; /* added to make it on top of everything */
+  overflow-y: auto; /* add this */
+  max-height: 350px; /* or a fixed height */
+}
+
+.suggestions ul {
+list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.element {
+  transition: all 0.5 s ease;
+}
+.suggestions li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.suggestion-photo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.suggestions li:hover {
+  background-color: #d1cfcf;
+  cursor: pointer;
+}
+
+#search-input:focus + .suggestions {
+  display: block;
+}
+
+
+
+
+.notification-panel {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification-panel.show {
+  transform: translateX(0);
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+
+
+
+.sidebar nav a1 {
+        display: flex;
+        align-items: center;
+        padding: 0.3rem 0.3rem;
+        color: #79aefd;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+   
+    
+   
+    
+
+    
+    .sidebar nav a1:hover{
+      color: #79aefd;
+    }
+
+    .sidebar nav a1 img {
+        width: 40px;
+        height: 40px;
+        margin-right: 1rem;
+        margin-top: 20px;
+    }
+   
+    .sidebar nav a1 span {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 50px;
+}
+
+th, td {
+  border: 1px solid #000000;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #01579B;
+  color:white;
+  text-align: center;
+  cursor: d;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.border-b-2 {
+  border-bottom: 2px solid #ddd;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+ </style>
+<head>
+    
+  </head>
+  <div class="sidebar">
+    <div class="logo">STI VIGAN E-LIBRARY</div>
+    <img src="../image/sti logo 4 (2).png" alt="STI Logo" />
+    <nav>
+      <a  href="/dashboard2.html">
+          <img src="../image/home.png" alt="Others Icon" />
+          <span>Dashboard</span>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7"/>
+          </svg>
+      </a>
+      <a href="/catalog.html">
+          <img src="../image/catalog.png" alt="Others Icon" />
+          <span>Catalogs</span>
+         
+      </a>
+
+      <a href="/archive.html">
+        <img src="../image/catalog.png" alt="Others Icon" />
+        <span>Archive </span>
+       
+    </a>
+      <a href="/StudentsUploading.html">
+        <img src="../image/user (1).png" alt="Others Icon" />
+        <span>Students</span>
+       
+    </a>
+    
+     
+      
+      <a href="#" id="logoutbutton">
+        <img src="../image/logout.png"  />
+        <span>Log-out</span>
+
+      
+    </a>
+  </nav>
+</div>
+
+  <body>  
+    <div class="top-bar">
+      <div class="title">Faculty</div>
+      <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Search..." autocomplete="off" >
+        <div class="suggestions">
+          <ul>
+            <!--BOOKS-->
+            <p id="booksCollectiones"><b>Books</b></p>
+            <li>
+              <img id="books1" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book1-name"></span>
+            </li>          
+            <li>
+              <img id="books2" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book2-name"></span>
+            </li>   
+            <li>
+              <img id="books3" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book3-name"></span>
+            </li>   
+            <!--sTUDENTS-->
+            <p id="studentCollectiones"><b>Students</b></p>
+            <li>
+              <img id="users1" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user1-name"></span>
+            </li>   
+            <li>
+              <img id="users2" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user2-name"></span>
+            </li>   
+            <li>
+              <img id="users3" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user3-name"></span>
+            </li>
+            <!--teachers-->
+            <p id="teachersCollectiones"><b>Faculty</b></p>
+            <li>
+              <img id="teachers1" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers1-name"></span>
+            </li>   
+            <li>
+              <img id="teachers2" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers2-name"></span>
+            </li>   
+            <li>
+              <img id="teachers3" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers3-name"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+     
+    </div>
+   
+   
+
+    
+
+    <div class="fixed bottom-0 w-full bg-zinc-900 py-2 px-4 flex justify-end items-center">
+    </div>
+
+    <!--This is the main content-->
+    <div class="main-content">
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+      </html>
+      
+      <div >
+        <input type="file" id="file-input" style="display: none;">
+        <label class="upload-button"  id="updateMembers" >Update Members</label>
+      </div>
+
+      <input type="file" id="csv-file" style="display: none;">
+            <table class="w-full text-left">
+              <thead>
+                <tr>
+                  <th class="border-b-2 p-2">ID Number</th>
+                  <th class="border-b-2 p-2">Name</th>
+      
+                  <th class="border-b-2 p-2">Account</th>
+                  <th class="border-b-2 p-2">Role</th>
+                  <th class="border-b-2 p-2">Status</th>
+
+
+                  
+      
+                  
+                </tr>
+              </thead>
+              <tbody id="table-body">
+              </tbody>
+            </table>
+          </div>
+            
+          
+     
+
+
+
+    
+         
+    
+
+          
+          
+
+              
+    </body>
+
+
+<!-- Search-->
+  
+
+<div id="yeseditInfo" style="display:none">
+
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+      <div class="flex justify-between items-center border-b border-blue-200 pb-2">
+        <h2 class="text-blue-600 dark:text-blue-400 text-lg font-semibold">Edit Information</h2>
+        <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="yeseditInfocancel2">×</button>
+      </div>
+      <div class="flex items-center py-4">
+        <img aria-hidden="true" alt="alert icon" src="/image/pen.png" height="80px" width="50px" class="rounded-full mr-4" crossorigin="anonymous">
+        <div>
+          <h3 class="text-lg font-semibold text-blue-600 dark:text-blue-400" id="clickedRowtoShowonEdit">Edit</h3>
+          <p class="text-zinc-600 dark:text-zinc-300"></p>
+        </div>
+      </div>
+      <div class="py-2">
+        <label for="role" class="block text-zinc-600 dark:text-zinc-300 mb-2">Change Role</label>
+        <select id="roleDropdown" class="w-full border border-gray-300 rounded-md p-2">
+          <option value="Faculty">Faculty</option>
+          <option value="Librarian">Librarian</option>
+        </select>
+      </div>
+      <div class="py-2">
+        <label for="status" class="block text-zinc-600 dark:text-zinc-300 mb-2">Change Status</label>
+        <select id="statusDropdown" class="w-full border border-gray-300 rounded-md p-2">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+      <div class="flex justify-end space-x-2 mt-4">
+        <button class="bg-red-600 dark:text-zinc-300 border rounded-lg py-2 px-4" id="yeseditInfocancel">Cancel</button>
+        <button class="bg-blue-600 text-white rounded-lg py-2 px-4" id="ifYeseditInfo">Save</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <div id="logout"  style="display:none">
+
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+        <div class="flex justify-between items-center border-b border-red-200 pb-2">
+            <h2 class="text-red-600 dark:text-red-400 text-lg font-semibold">Log out</h2>
+            <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="changepassword"   >×</button>
+        </div>
+        <div class="flex items-center py-4">
+            <img aria-hidden="true" alt="alert icon" src="../image/set-of-error-icon-information-logo-illustration-vector.png" height="80px" width="80px" class="rounded-full mr-4  " crossorigin="anonymous">
+            <div>
+                <h3 class="text-lg font-semibold text-red-600 dark:text-red-400">Are You Sure you want to logout?</h3>
+                <p class="text-zinc-600 dark:text-zinc-300"></p>
+            </div>
+        </div>
+        <div class="flex justify-end space-x-2 mt-4">
+          <button  class="bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="changepassword1"    >Cancel</button>
+          <button class="bg-red-600 text-white rounded-lg py-2 px-4" id="confirm-logout" >Log me out</button>
+          </div>
+    </div>
+</div>
+</div>
+
+
+<div id="addMembers" style="display:none"  >
+
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-400 p-4">
+      <div class="flex justify-between items-center border-b border-red-200 pb-2">
+          <h2 class="text-red-600 dark:text-blue-400 text-lg font-semibold">How to Upload?</h2>
+          <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="closeAddMembers"   >×</button>
+      </div>
+      <div class="flex items-center py-4">
+          <img aria-hidden="true" alt="alert icon" src="/image/HOW.jpg" height="1200px" width="900px"     crossorigin="anonymous">
+          <div>
+            <h3 class="text-lg font-semibold text-blue-600 dark:text-blue-400 text-center ml-20">Use CSV File to upload</h3>
+            <p class="text-zinc-600 dark:text-zinc-300 text ml-20">- Make Space on a First ROW and Second ROW</p>
+            <p class="text-zinc-600 dark:text-zinc-300 ml-20">- Employee ID on a First COLUMN, Example:(2000123456) </p>
+            <p class="text-zinc-600 dark:text-zinc-300 ml-20">- First Name on a Second COLUMN</p>
+            <p class="text-zinc-600 dark:text-zinc-300 ml-20">- MIddle Name on a Third COLUMN</p>
+            <p class="text-zinc-600 dark:text-zinc-300 ml-20">- Last Name on a Fourth COLUMN</p>
+            <p class="text-zinc-600 dark:text-zinc-300 ml-20">- Recommended Email on a Fifth COLUMN </p>
+            <p class="text-zinc-600 dark:text-zinc-300 ml-20">- Roles on a Sixth Column , Example: (Librarian, Faculty)</p>
+
+
+
+
+
+          </div>
+      </div>
+      <div class="flex justify-end space-x-2 mt-4">
+        <button  class="bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="closeAddMembers1"    >Cancel</button>
+        <button class="bg-blue-600 text-white rounded-lg py-2 px-4" id="uploadCSV" >Upload CSV File</button>
+        </div>
+  </div>
+</div>
+</div>
+
+
+
+  
+
+
+
+
+
+
+
+<!-- Search-->
+
+<!-- Firebase Function-->
+ 
+<script src="https://cdn.firebase.com/libs/firebasejs/9.6.1/firebase-app.js" defer></script>
+      <script src="https://cdn.firebase.com/libs/firebasejs/9.6.1/firebase-auth.js" defer></script>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, getDocs, query, where,orderBy, limit, setDoc,doc,deleteDoc,updateDoc,getDoc} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+        import { getStorage, ref, getDownloadURL,} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js";
+        import {getAuth, getAuth as getAuthInstance, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+        import { signInWithEmailAndPassword ,onAuthStateChanged,signOut,createUserWithEmailAndPassword,deleteUser, deleteUser as deleteAuthUser} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCbWyVqhZdWL5tGF5Y2YXRpY5PJLC0ee6M",
+  authDomain: "elibrarylogin-3d7e6.firebaseapp.com",
+  projectId: "elibrarylogin-3d7e6",
+  storageBucket: "elibrarylogin-3d7e6.appspot.com",
+  messagingSenderId: "872832392728",
+  appId: "1:872832392728:web:10489984713141407ded6d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+        //logoutbutton on dashboard
+     // Select the logout button and the modal
+const logoutButton = document.getElementById('logoutbutton'); // assume this is the ID of the logout button
+const logoutModal = document.getElementById('logout');
+
+// Add an event listener to the logout button
+logoutButton.addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'block'; // show the modal
+});
+
+// Add an event listener to the cancel button
+document.getElementById('changepassword').addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'none'; // hide the modal
+});
+
+
+document.getElementById('changepassword1').addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'none'; // hide the modal
+});
+
+document.getElementById('confirm-logout').addEventListener('click', function() {
+    signOut(auth).then(() => {
+        // Clear browser history to prevent back button navigation
+        window.location.href = '/logoutloading.html'; // Redirect to login page
+        history.pushState(null, null, window.location.href); 
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    }).catch((error) => {
+        console.error('Error signing out:', error);
+        alert('Error signing out. Please try again.');
+    });
+});
+
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        // User is not signed in, redirect to login page
+        window.location.href = '/index.html'; // Redirect to login page
+    }
+});
+
+
+  //logoutbutton on pop up
+  
+
+
+//search function
+
+
+
+
+
+
+
+
+
+
+const facultyRef = collection(db, 'faculty');
+const tbody = document.querySelector('tbody');
+const searchInput = document.getElementById('search-input');
+let selectedStudentId = null;
+
+onSnapshot(facultyRef, async (snapshot) => {
+  tbody.innerHTML = '';
+
+  // Sort documents by 'fullname'
+  const sortedDocs = snapshot.docs.sort((a, b) => {
+    const fullnameA = a.data().fullname.toLowerCase();
+    const fullnameB = b.data().fullname.toLowerCase();
+    return fullnameA.localeCompare(fullnameB);
+  });
+
+  // Populate the table with sorted data
+  sortedDocs.forEach((doc) => {
+    const student = doc.data();
+    let row = `
+    <tr data-student-id="${doc.id}" class="clickable-row">
+        <td class="p-2">${student.idNumber}</td>
+        <td class="p-2">${student.fullname}</td>
+        <td class="p-2">${student.email}</td>
+        <td class="p-2">${student.roles}</td>
+        <td class="p-2">${student.status}</td>
+    </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+
+  // Add event listeners to each row
+  document.querySelectorAll('.clickable-row').forEach(row => {
+    row.addEventListener('click', function() {
+      const fullname = this.querySelector('td:nth-child(2)').innerText; // Get the full name from the second column
+      selectedStudentId = this.getAttribute('data-student-id'); // Get student id from the row
+      document.getElementById('clickedRowtoShowonEdit').innerText = fullname; // Show the full name in the pop-up
+      document.getElementById('yeseditInfo').style.display = 'block'; // Show the pop-up
+    });
+  });
+
+  // Close pop-up on cancel or close button
+  document.getElementById('yeseditInfocancel').addEventListener('click', function() {
+    document.getElementById('yeseditInfo').style.display = 'none'; // Hide the pop-up
+  });
+
+  document.getElementById('yeseditInfocancel2').addEventListener('click', function() {
+    document.getElementById('yeseditInfo').style.display = 'none'; // Hide the pop-up
+  });
+});
+
+// Save the changes when the "Save" button is clicked
+document.getElementById('ifYeseditInfo').addEventListener('click', async function() {
+  const newRole = document.getElementById('roleDropdown').value;
+  const newStatus = document.getElementById('statusDropdown').value;
+
+  if (selectedStudentId) {
+    const studentDocRef = doc(facultyRef, selectedStudentId);
+
+    // Simply update role and status in the faculty collection
+    await updateDoc(studentDocRef, {
+      roles: newRole,
+      status: newStatus
+    });
+
+    // Hide the popup after saving
+    document.getElementById('yeseditInfo').style.display = 'none';
+  }
+});
+
+// Search filter
+searchInput.addEventListener('input', (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const rows = tbody.rows;
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const cells = row.cells;
+    let match = false;
+    for (let j = 0; j < cells.length; j++) {
+      const cell = cells[j];
+      const cellText = cell.textContent.toLowerCase();
+      if (cellText.includes(searchTerm)) {
+        match = true;
+        break;
+      }
+    }
+    row.style.display = match ? '' : 'none';
+  }
+});
+
+
+
+
+//search function // // // // // // // //
+
+
+window.onload = async function() {
+    try {
+        // Fetch and sort users
+        const usersCollection = collection(db, 'users');
+        const userSnapshot = await getDocs(usersCollection);
+        const userDocs = userSnapshot.docs;
+
+        const sortedUserDocs = userDocs.sort((a, b) => {
+            const fullNameA = `${a.data().firstname} ${a.data().middlename} ${a.data().lastname}`;
+            const fullNameB = `${b.data().firstname} ${b.data().middlename} ${b.data().lastname}`;
+            return fullNameA.localeCompare(fullNameB);
+        });
+
+        // Fetch and sort books
+        const booksCollection = collection(db, 'books');
+        const bookSnapshot = await getDocs(booksCollection);
+        const bookDocs = bookSnapshot.docs;
+
+        const sortedBookDocs = bookDocs.sort((a, b) => {
+            const titleA = a.data().title;
+            const titleB = b.data().title;
+            return titleA.localeCompare(titleB);
+        });
+
+        // Fetch and sort faculty members
+        const facultyCollection = collection(db, 'faculty');
+        const facultySnapshot = await getDocs(facultyCollection);
+        const facultyDocs = facultySnapshot.docs;
+
+        const sortedFacultyDocs = facultyDocs.sort((a, b) => {
+            const emailA = a.data().email;
+            const emailB = b.data().email;
+            return emailA.localeCompare(emailB);
+        });
+
+        // Function to update the UI for users, books, and faculty members
+        const updateUI = (searchTerm) => {
+            const filteredUsers = sortedUserDocs.filter((doc) => {
+                const fullName = `${doc.data().firstname} ${doc.data().middlename} ${doc.data().lastname}`;
+                return fullName.toLowerCase().includes(searchTerm);
+            });
+
+            const filteredBooks = sortedBookDocs.filter((doc) => {
+                const title = doc.data().title.toLowerCase();
+                return title.includes(searchTerm);
+            });
+
+            const filteredFaculty = sortedFacultyDocs.filter((doc) => {
+                const email = doc.data().email.toLowerCase();
+                return email.includes(searchTerm);
+            });
+
+            // Update UI for users
+            let hasUsers = false;
+            for (let i = 1; i <= 3; i++) {
+                const userNameElement = document.getElementById(`user${i}-name`);
+                const userItemElement = userNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredUsers.length) {
+                    const data = filteredUsers[i - 1].data();
+                    const fullName = `${data.firstname} ${data.middlename} ${data.lastname}`;
+                    userNameElement.textContent = fullName;
+                    userItemElement.style.display = ''; // Show the list item
+                    hasUsers = true;
+                } else {
+                    userNameElement.textContent = '';
+                    userItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Students section
+            const studentsSection = document.getElementById('studentCollectiones');
+            if (hasUsers) {
+                studentsSection.style.display = ''; // Show the section if there are users
+            } else {
+                studentsSection.style.display = 'none'; // Hide the section if no users
+            }
+
+            // Update UI for books
+            let hasBooks = false;
+            for (let i = 1; i <= 3; i++) {
+                const bookNameElement = document.getElementById(`book${i}-name`);
+                const bookItemElement = bookNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredBooks.length) {
+                    const title = filteredBooks[i - 1].data().title;
+                    bookNameElement.textContent = title;
+                    bookItemElement.style.display = ''; // Show the list item
+                    hasBooks = true;
+                } else {
+                    bookNameElement.textContent = '';
+                    bookItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Books section
+            const booksSection = document.getElementById('booksCollectiones');
+            if (hasBooks) {
+                booksSection.style.display = ''; // Show the section if there are books
+            } else {
+                booksSection.style.display = 'none'; // Hide the section if no books
+            }
+
+            // Update UI for faculty members
+            let hasFaculty = false;
+            for (let i = 1; i <= 3; i++) {
+                const facultyNameElement = document.getElementById(`teachers${i}-name`);
+                const facultyItemElement = facultyNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredFaculty.length) {
+                    const email = filteredFaculty[i - 1].data().email;
+                    facultyNameElement.textContent = email;
+                    facultyItemElement.style.display = ''; // Show the list item
+                    hasFaculty = true;
+                } else {
+                    facultyNameElement.textContent = '';
+                    facultyItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Faculty section
+            const facultySection = document.getElementById('teachersCollectiones');
+            if (hasFaculty) {
+                facultySection.style.display = ''; // Show the section if there are faculty members
+            } else {
+                facultySection.style.display = 'none'; // Hide the section if no faculty members
+            }
+        };
+
+        // Add event listener to the search input
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            updateUI(searchTerm);
+        });
+
+        // Initial UI population with the first three users, books, and faculty members
+        updateUI('');
+    } catch (error) {
+        console.error("Error fetching users, books, or faculty members: ", error);
+    }
+};
+
+
+
+
+//open Update Members
+document.getElementById("updateMembers").addEventListener("click", function() {
+  document.getElementById("addMembers").style.display = "block";
+});
+//close modal of update Member
+document.getElementById("closeAddMembers").addEventListener("click", function(){
+  document.getElementById("addMembers").style.display = "none";
+});
+document.getElementById("closeAddMembers1").addEventListener("click", function(){
+  document.getElementById("addMembers").style.display = "none";
+});
+
+
+
+
+/////////////////////////////////////////////////////////////////////-----------------------------------------------------------
+
+// Helper function to validate email format using regex
+function isValidEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+}
+
+// Helper function to fetch existing users from Firestore
+async function fetchExistingUsers() {
+  const db = getFirestore();
+  const users = [];
+
+  // Fetch all users from Firestore
+  const facultySnapshot = await getDocs(collection(db, 'faculty'));
+  facultySnapshot.forEach(doc => {
+    users.push({ ...doc.data(), uid: doc.id });
+  });
+
+  return users;
+}
+
+// Helper function to update a user's status in Firestore
+async function updateUserStatusInFirestore(uid, status) {
+  const db = getFirestore();
+  try {
+    const userRef = doc(db, 'faculty', uid);
+    await updateDoc(userRef, { status });
+    console.log(`User with UID ${uid} status updated to "${status}" in Firestore.`);
+  } catch (error) {
+    console.error(`Error updating user status with UID ${uid}:`, error);
+  }
+}
+
+// Helper function to create or update a user in Firestore
+async function createUserInFirestore(uid, user) {
+  const db = getFirestore();
+  try {
+    const userRef = doc(db, 'faculty', uid);
+    await setDoc(userRef, {
+      idNumber: user.idNumber,
+      fullname: user.fullname,
+      email: user.email,
+      roles: user.roles,
+      status: "Active", // Set status to "Active"
+    }, { merge: true }); // Use merge to update if already exists
+    console.log(`User data added/updated for "${user.fullname}" with status "Active"`);
+  } catch (error) {
+    console.error(`Error adding/updating user data for "${user.fullname}":`, error);
+  }
+}
+
+
+
+document.getElementById('uploadCSV').addEventListener('click', async () => {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '.csv';
+
+  fileInput.addEventListener('change', async (e) => {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = async (event) => {
+      const csvData = event.target.result;
+      const rows = csvData.split('\n').map(row => row.trim()).filter(row => row.length > 0);
+      const usersToCreate = [];
+      const csvUsersSet = new Set(); // Track users from the CSV
+
+      // Start processing from the third row (index 2)
+      for (let i = 2; i < rows.length; i++) {
+        const row = rows[i].split(',');
+        const cleanRow = row.map(cell => cell.replace(/^"|"$/g, '').trim());
+        console.log(`Processing row ${i + 1}:`, cleanRow);
+
+        // Ensure there are at least 6 columns (idNumber, firstname, middlename, lastname, email, roles)
+        if (cleanRow.length >= 6) {
+          const idNumber = cleanRow[0]; // Column A: idNumber
+          const firstname = cleanRow[1]; // Column B: firstname
+          const middlename = cleanRow[2]; // Column C: middlename
+          const lastname = cleanRow[3]; // Column D: lastname
+          const email = cleanRow[4]; // Column E: email
+          const roles = cleanRow[5]; // Column F: roles
+
+          console.log(`Extracted idNumber: "${idNumber}"`);
+          console.log(`Extracted email: "${email}"`);
+
+          // Ensure email is not empty
+          if (!email) {
+            console.error(`Email is empty for user "${firstname} ${middlename} ${lastname}" in row ${i + 1}`);
+            continue;
+          }
+
+          // Validate email format
+          if (isValidEmail(email)) {
+            csvUsersSet.add(email); // Track CSV user emails
+            const user = {
+              idNumber,
+              fullname: `${firstname} ${middlename} ${lastname}`,
+              email,
+              roles,
+            };
+            usersToCreate.push(user);
+          } else {
+            console.error(`Invalid email format: "${email}" for user "${firstname} ${middlename} ${lastname}" in row ${i + 1}`);
+          }
+        } else {
+          console.error(`Incomplete data in row ${i + 1}:`, cleanRow);
+        }
+      }
+
+      // Fetch existing users from Firestore
+      const existingUsers = await fetchExistingUsers();
+      const existingUserEmails = new Set(existingUsers.map(user => user.email));
+
+      // Process deletion - Update status to "Inactive" for users not in the CSV
+      for (const user of existingUsers) {
+        if (!csvUsersSet.has(user.email)) {
+          // User not in CSV, update status to "Inactive"
+          await updateUserStatusInFirestore(user.uid, "Inactive");
+        }
+      }
+
+      // Proceed with user creation or updates (Active users from CSV)
+      for (const user of usersToCreate) {
+        try {
+          try {
+            const auth = getAuth();
+            const password = user.idNumber; // Use idNumber as the password
+
+            // Check if user already exists in Firebase Authentication
+            let userCredential;
+            try {
+              userCredential = await createUserWithEmailAndPassword(auth, user.email, password);
+              console.log('User created:', userCredential.user.uid);
+            } catch (error) {
+              if (error.code === 'auth/email-already-in-use') {
+                // User already exists, get the user
+                const userRecord = await getAuth().getUserByEmail(user.email);
+                userCredential = { user: { uid: userRecord.uid } };
+                console.log(`User already exists in Authentication: ${user.email}`);
+              } else {
+                throw error;
+              }
+            }
+
+            // Check if user exists in Firestore
+            const db = getFirestore();
+            const userRef = doc(db, 'faculty', userCredential.user.uid);
+            const userDoc = await getDoc(userRef);
+
+            if (userDoc.exists()) {
+              // Update user data in Firestore if already exists
+              await updateUserStatusInFirestore(userCredential.user.uid, "Active");
+              await createUserInFirestore(userCredential.user.uid, user);
+              console.log(`User ${user.email} updated in Firestore.`);
+            } else {
+              // Add user data to Firestore if not exists
+              await createUserInFirestore(userCredential.user.uid, user);
+            }
+
+          } catch (error) {
+            console.error(`Error creating user "${user.fullname}":`, error);
+          }
+        } catch (error) {
+          console.error(`Error creating user "${user.fullname}":`, error);
+        }
+      }
+
+      // Update status to "Active" for users in the CSV that already exist in Firestore
+      for (const user of usersToCreate) {
+        const existingUser = existingUsers.find(u => u.email === user.email);
+        if (existingUser) {
+          await updateUserStatusInFirestore(existingUser.uid, "Active");
+        }
+      }
+
+      // Hide the addMembers element after processing
+      document.getElementById("addMembers").style.display = "none";
+    };
+
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+    };
+
+    reader.readAsText(file);
+  });
+
+  fileInput.click();
+});
+
+
+  </script>
+
+
+</body>
+</html>

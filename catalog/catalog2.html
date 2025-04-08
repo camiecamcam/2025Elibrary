@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<html>
+
+<head>
+    
+  </head>
+  <div class="sidebar">
+    <div class="logo">STI VIGAN E-LIBRARY</div>
+    <img src="../image/sti logo 4 (2).png" alt="STI Logo" />
+    <nav>
+      <a  href="../dashboard/dashboard2.html">
+          <img src="../image/home.png" alt="Others Icon" />
+          <span>Dashboard</span>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7"/>
+          </svg>
+      </a>
+      <a1 href="../catalog/catalog.html">
+          <img src="../image/catalog.png" alt="Others Icon" />
+          <span>Catalogs</span>
+         
+      </a1>
+      <a href="../studentsFolder/students.html">
+        <img src="../image/user (1).png" alt="Others Icon" />
+        <span>Students</span>
+       
+    </a>
+    
+      <a href="../reportsFolder/reports.html">
+          <img src="../image/reports.png" alt="Others Icon" />
+          <span>Reports</span>
+         
+      </a>
+      <a href="#">
+          <img src="../image/others.png" alt="Others Icon" />
+          <span>Others</span>
+          
+      </a>
+      <a href="#" id="logoutbutton">
+        <img src="../image/logout.png"  />
+        <span>Log-out</span>
+
+      
+    </a>
+  </nav>
+</div>
+
+  <body>
+    <div class="top-bar">
+      <div class="title">Catalogs</div>
+      <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Search..." autocomplete="off" >
+        <div class="suggestions">
+          <ul>
+            <!--BOOKS-->
+            <p id="booksCollectiones"><b>Books</b></p>
+            <li>
+              <img id="books1" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book1-name"></span>
+            </li>          
+            <li>
+              <img id="books2" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book2-name"></span>
+            </li>   
+            <li>
+              <img id="books3" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book3-name"></span>
+            </li>   
+            <!--sTUDENTS-->
+            <p id="studentCollectiones"><b>Students</b></p>
+            <li>
+              <img id="users1" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user1-name"></span>
+            </li>   
+            <li>
+              <img id="users2" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user2-name"></span>
+            </li>   
+            <li>
+              <img id="users3" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user3-name"></span>
+            </li>
+            <!--teachers-->
+            <p id="teachersCollectiones"><b>Faculty</b></p>
+            <li>
+              <img id="teachers1" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers1-name"></span>
+            </li>   
+            <li>
+              <img id="teachers2" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers2-name"></span>
+            </li>   
+            <li>
+              <img id="teachers3" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers3-name"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+      <div class="icons">
+       
+        
+        
+        <img  id="notificationbell"   src="../image/notification-bell-icon-free-vector.png" alt="search" />
+        <div class="notification" >
+          <img src="../image/YH5TFCE1QY-preview.png" alt="profile" />
+        </div>
+      
+      </div>
+    </div>
+   
+    </div>
+   
+   
+
+    
+
+    <div class="fixed bottom-0 w-full bg-zinc-900 py-2 px-4 flex justify-end items-center">
+    </div>
+
+    <!--This is the main content-->
+    <div class="main-content">
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+      
+     
+
+
+
+
+        <!--main content here-->
+
+
+
+        
+        <div class="upload-button">
+          <input type="file" id="file-input" style="display: none;">
+          <label for="file-input" class="button" id="add"   >Add Books</label>
+        </div>
+
+
+       
+  
+    
+<!-- Books Retrieval-->
+<div class="overflow-x-auto">
+  <table class="min-w-full border-collapse border border-zinc-200">
+    <thead>
+      <tr>
+        <th id="th" class="border border-zinc-300 bg-zinc-100 px-4 py-2">CATEGORY</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">BOOK NUMBER</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">TITLE</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">FRONT PAGE</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">DATE ADDED</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">
+          Actions
+        </th>
+
+      </tr>
+    </thead>
+    <tbody id="books-table-body">
+      <!-- data will be rendered here -->
+    </tbody>
+  </table>
+</div>
+<!--sidebar Notification-->
+<div class="fixed top-0 right-0 flex items-center justify-center bg-white notification-panel" id="notification-panel">
+  <div class="bg-card rounded-lg shadow-lg p-6 w-80">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold text-foreground">Notifications</h2>
+      <button class="text-muted-foreground hover:text-muted close-button" id="close-button">×</button>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded-lg shadow-md">
+        <h3 class="font-semibold">Text</h3>
+        <p class="text-muted-foreground">Descriptions</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="flex items-center justify-between bg-secondary text-secondary-foreground p-2 rounded-lg">
+  <div class="flex items-center space-x-2">
+    <span>Rows per page:</span>
+    <div class="relative">
+
+      
+      <button class="bg-secondary text-secondary-foreground border border-secondary rounded-md p-1">
+        
+        20 <svg class="w-4 h-4"  stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+
+
+
+      <ul class="absolute right-0 w-32 bg-secondary text-secondary-foreground border border-secondary rounded-md p-1 hidden">
+        <li><a href="#" class="block p-1">10</a></li>
+        <li><a href="#" class="block p-1">25</a></li>
+        <li><a href="#" class="block p-1" class="active">20</a></li>
+        <li><a href="#" class="block p-1">100</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="flex items-center space-x-2">
+    <span>1 – 3 of 3</span>
+    <button class="p-1" title="Previous page">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button class="p-1" title="Next page">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+        <!--up to here-->
+    </body>
+
+
+
+
+
+
+
+<!-- Search-->
+  
+
+
+<!--Logout pop up-->
+
+  <div id="logout"  style="display:none">
+
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+        <div class="flex justify-between items-center border-b border-red-200 pb-2">
+            <h2 class="text-red-600 dark:text-red-400 text-lg font-semibold">Log out</h2>
+            <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="changepassword"   >×</button>
+        </div>
+        <div class="flex items-center py-4">
+            <img aria-hidden="true" alt="alert icon" src="../image/set-of-error-icon-information-logo-illustration-vector.png" height="80px" width="80px" class="rounded-full mr-4  " crossorigin="anonymous">
+            <div>
+                <h3 class="text-lg font-semibold text-red-600 dark:text-red-400">Are You Sure you want to logout?</h3>
+                <p class="text-zinc-600 dark:text-zinc-300"></p>
+            </div>
+        </div>
+        <div class="flex justify-end space-x-2 mt-4">
+          <button  class="bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="changepassword1"    >Cancel</button>
+          <button class="bg-red-600 text-white rounded-lg py-2 px-4" id="confirm-logout" >Log me out</button>
+          </div>
+    </div>
+</div>
+</div>
+
+
+<!--Popup-->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto z-50" id="addbooks" style="display:none;">
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-card rounded-lg p-5 shadow-lg w-96">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold"  >ADD</h2>
+        <button class="text-xl" id="closeaddbooks">&times;</button>
+      </div>
+      <div class="overflow-y-auto h-96"> <!-- Add this wrapper element -->
+        <form>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">TITLE</label>
+          <input  id="title"   type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">MEDIA TYPE</label>
+          <select  id="mediaType"  class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">
+            <option value="">Select Media Type</option>
+            <option  >Audio E-Books</option>
+            <option > Text E-Books</option>
+            
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">AUTHORS</label>
+          <input id="authors" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">ISBN</label>
+          <input id="isbn"  type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">PUBLISHER</label>
+          <input id="publisher" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">SUBJECT</label>
+          <input id="subject" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label  class="block text-sm font-medium text-zinc-700 black:text-zinc-300">STRAND/COURSE</label>
+          <input id="strandsCourses"     type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">CATEGORY</label>
+          <select  id="category" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">
+            <option value="">Select Category</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">FULL DESCRIPTION</label>
+          <textarea  id="fulldescription" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"></textarea>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">YEAR</label>
+          <input id="year"  type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">VOLUME</label>
+          <input id="volume"  type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">PAGE</label>
+          <input  id="pages" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black :text-zinc-300">Add Book Cover</label>
+          <div  id="img" class="border-dashed border-2 border-zinc-300 rounded-md h-40 flex items-center justify-center text-zinc-500">
+            <span>Add Book Cover</span>
+          </div>
+          <input id="pdfLink" type="file" class="mt-2" />
+        </div>
+        <div class="flex justify-between">
+          <button  class="bg-primary text-primary-foreground hover:bg-primary/80 px-4 py-2 rounded-md">ADD</button>
+          <button type="button" class="border border-zinc-300 rounded-md px-4 py-2 hover:bg-zinc-100" id="closeaddbooks">CANCEL</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+  <style>
+     .top-bar {
+        background-color: #01579B;
+        color: #FFFFFF;
+        padding: 5px;
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .top-bar .title {
+        font-size: 2rem;
+        margin-left: 290px;
+        font-weight: 600;
+    }
+    .top-bar .icons {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+    .top-bar .icons img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    .top-bar .icons img:hover {
+        transform: scale(1.3);
+    }
+
+ 
+
+    .top-bar .icons .notification {
+        position: relative;
+    }
+
+    .top-bar .icons .notification span {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        background-color: #0dff00;
+        border-radius: 50%;
+    }
+
+    .sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  background-color: #2C384A;
+  color: #FFFFFF;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-width: thin; /* for Firefox */
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* for IE and Edge */
+}
+
+.sidebar .logo {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.sidebar img {
+  width: 170px;
+  margin-bottom: 1rem;
+}
+
+.sidebar nav {
+  flex-grow: 1;
+  margin-top: 2rem;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0.3rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar nav a:hover {
+  color: #79aefd;
+}
+
+.sidebar nav a img {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  margin-top: 20px;
+}
+
+.sidebar nav a span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+    .main-content {
+        margin-left: 260px;
+        padding-left: 40px;
+        padding-right: 20px;
+        padding-bottom: 70px;
+        margin-top: 1px;
+    }
+
+    .card {
+        background-color: #FFFFFF;
+        padding: 1rem;
+        border: 1px solid #CCCCCC;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h2 {
+        margin-top: 0;
+    }
+
+    #chatheadsnotif {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #chatheadsnotif:hover {
+    transform: scale(1.2);
+  }
+
+  #chatheadsnotif.expanded {
+    transform: scale(1.5);
+  }
+
+  #chatheadsnotif.expanded #chatheads {
+    width: 80px;
+    height: 80px;
+  }
+
+  #chatheadsnotif.expanded .absolute {
+    bottom: -10px;
+    right: -10px;
+  }
+  .upload-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+
+
+.upload-button  {
+  background-color: #01579B;
+  color: #fff;
+  padding: 5px 10px; 
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  border: none;
+  border-radius: 5px;
+  ;
+}
+
+.upload-button:hover {
+  background-color: #559af5;
+  ;
+}
+
+.upload-button:active {
+  background-color: #539cf0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  ;
+
+}
+
+th.border{
+  background-color: #01579B;
+  color:white;
+  text-align: center;
+}
+  </style>
+  
+<style>
+  #book-icon {
+  transition: transform 0.5s; /* add transition effect */
+}
+
+#book-icon:hover {
+  transform: scale(1.1); /* scale up by 10% on hover */
+}
+
+
+body {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+:root {
+  scrollbar-width: none !important;
+}
+.search-bar {
+  width: 300px;
+  position: absolute;
+  top: 50; /* changed to 0 to make it on top */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3; /* added to make it on top of everything */
+}
+
+#search-input {
+  flex: 2;
+  width: 400px;
+  padding: 10px;
+  color: black;
+  font-size: 12px;
+  border: none;
+  border-radius: 10px 10px 10px 10px;
+}
+
+
+
+.suggestions {
+  position: absolute;
+  top: 35px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+  display: none;
+  color: black;
+  z-index: 3; /* added to make it on top of everything */
+  overflow-y: auto; /* add this */
+  max-height: 350px; /* or a fixed height */
+}
+
+.suggestions ul {
+list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.suggestion-photo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.suggestions li:hover {
+  background-color: #d1cfcf;
+  cursor: pointer;
+}
+
+#search-input:focus + .suggestions {
+  display: block;
+}
+
+
+
+.show {
+  display: block; /* show the search bar wh en the show    is added */
+}
+
+
+
+
+
+
+.sidebar nav a1 {
+        display: flex;
+        align-items: center;
+        padding: 0.3rem 0.3rem;
+        color: #79aefd;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+   
+    
+
+    
+    .sidebar nav a1:hover{
+      color: #79aefd;
+    }
+
+    .sidebar nav a1 img {
+        width: 40px;
+        height: 40px;
+        margin-right: 1rem;
+        margin-top: 20px;
+    }
+   
+    .sidebar nav a1 span {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+
+    select {
+  width: 200px; /* adjust the width as needed */
+  padding: 10px;
+  border: 1px solid #232121;
+  border-radius: 5px;
+  margin-top: 35px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+
+.notification-panel {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification-panel.show {
+  transform: translateX(0);
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+
+.edit-button{
+  width: 10%;
+}
+.delete-button{
+  width: 10% ; 
+}
+
+ </style>
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+
+<!-- Search-->
+
+<!-- Firebase Function-->
+
+<script src="https://cdn.firebase.com/libs/firebasejs/9.6.1/firebase-app.js" defer></script>
+      <script src="https://cdn.firebase.com/libs/firebasejs/9.6.1/firebase-auth.js" defer></script>
+
+      
+      <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+import { getFirestore, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import{collection,onSnapshot}from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js";
+import { getAuth, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+import { signInWithEmailAndPassword ,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+      
+        const firebaseConfig = {
+          apiKey: "AIzaSyCbWyVqhZdWL5tGF5Y2YXRpY5PJLC0ee6M",
+  authDomain: "elibrarylogin-3d7e6.firebaseapp.com",
+  projectId: "elibrarylogin-3d7e6",
+  storageBucket: "elibrarylogin-3d7e6.appspot.com",
+  messagingSenderId: "872832392728",
+  appId: "1:872832392728:web:10489984713141407ded6d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+        //logoutbutton on dashboard
+     // Select the logout button and the modal
+const logoutButton = document.getElementById('logoutbutton'); // assume this is the ID of the logout button
+const logoutModal = document.getElementById('logout');
+
+// Add an event listener to the logout button
+logoutButton.addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'block'; // show the modal
+});
+
+// Add an event listener to the cancel button
+document.getElementById('changepassword').addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'none'; // hide the modal
+});
+
+document.getElementById('changepassword1').addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'none'; // hide the modal
+});
+
+document.getElementById('confirm-logout').addEventListener('click', function() {
+    signOut(auth).then(() => {
+        // Clear browser history to prevent back button navigation
+        window.location.href = '../index/index.html'; // Redirect to login page
+        history.pushState(null, null, window.location.href); 
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    }).catch((error) => {
+        console.error('Error signing out:', error);
+        alert('Error signing out. Please try again.');
+    });
+});
+
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        // User is not signed in, redirect to login page
+        window.location.href = '../index/index.html'; // Redirect to login page
+    }
+});
+  //logoutbutton on pop up
+  
+
+
+
+//search function // // // // // // // //
+
+
+
+window.onload = async function() {
+    try {
+        // Fetch and sort users
+        const usersCollection = collection(db, 'users');
+        const userSnapshot = await getDocs(usersCollection);
+        const userDocs = userSnapshot.docs;
+
+        const sortedUserDocs = userDocs.sort((a, b) => {
+            const fullNameA = `${a.data().firstname} ${a.data().middlename} ${a.data().lastname}`;
+            const fullNameB = `${b.data().firstname} ${b.data().middlename} ${b.data().lastname}`;
+            return fullNameA.localeCompare(fullNameB);
+        });
+
+        // Fetch and sort books
+        const booksCollection = collection(db, 'books');
+        const bookSnapshot = await getDocs(booksCollection);
+        const bookDocs = bookSnapshot.docs;
+
+        const sortedBookDocs = bookDocs.sort((a, b) => {
+            const titleA = a.data().title;
+            const titleB = b.data().title;
+            return titleA.localeCompare(titleB);
+        });
+
+        // Function to update the UI for users and books
+        const updateUI = (searchTerm) => {
+            const filteredUsers = sortedUserDocs.filter((doc) => {
+                const fullName = `${doc.data().firstname} ${doc.data().middlename} ${doc.data().lastname}`;
+                return fullName.toLowerCase().includes(searchTerm);
+            });
+
+            const filteredBooks = sortedBookDocs.filter((doc) => {
+                const title = doc.data().title.toLowerCase();
+                return title.includes(searchTerm);
+            });
+
+            // Update UI for users
+            let hasUsers = false;
+            for (let i = 1; i <= 3; i++) {
+                const userNameElement = document.getElementById(`user${i}-name`);
+                const userItemElement = userNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredUsers.length) {
+                    const data = filteredUsers[i - 1].data();
+                    const fullName = `${data.firstname} ${data.middlename} ${data.lastname}`;
+                    userNameElement.textContent = fullName;
+                    userItemElement.style.display = ''; // Show the list item
+                    hasUsers = true;
+                } else {
+                    userNameElement.textContent = '';
+                    userItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Students section
+            const studentsSection = document.getElementById('studentCollectiones');
+            if (hasUsers) {
+                studentsSection.style.display = ''; // Show the section if there are users
+            } else {
+                studentsSection.style.display = 'none'; // Hide the section if no users
+            }
+
+            // Update UI for books
+            let hasBooks = false;
+            for (let i = 1; i <= 3; i++) {
+                const bookNameElement = document.getElementById(`book${i}-name`);
+                const bookItemElement = bookNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredBooks.length) {
+                    const title = filteredBooks[i - 1].data().title;
+                    bookNameElement.textContent = title;
+                    bookItemElement.style.display = ''; // Show the list item
+                    hasBooks = true;
+                } else {
+                    bookNameElement.textContent = '';
+                    bookItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Books section
+            const booksSection = document.getElementById('booksCollectiones');
+            if (hasBooks) {
+                booksSection.style.display = ''; // Show the section if there are books
+            } else {
+                booksSection.style.display = 'none'; // Hide the section if no books
+            }
+        };
+
+        // Add event listener to the search input
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            updateUI(searchTerm);
+        });
+
+        // Initial UI population with the first three users and books
+        updateUI('');
+    } catch (error) {
+        console.error("Error fetching users or books: ", error);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//addbooks function pop up
+document.getElementById("add").addEventListener("click", function() {
+  document.getElementById("addbooks").style.display = "block";
+});
+var closeButton = document.getElementById("closeaddbooks");
+
+closeButton.addEventListener("click", function() {
+  addbooks.style.display = "none";
+});
+
+
+
+
+
+
+//notification function 
+const notificationBell = document.getElementById('notificationbell');
+const notificationPanel = document.getElementById('notification-panel');
+const closerButton = document.getElementById('close-button');
+
+notificationBell.addEventListener('click', () => {
+  notificationPanel.classList.add('show');
+});
+
+closerButton.addEventListener('click', () => {
+  notificationPanel.classList.remove('show');
+});
+
+
+
+
+
+
+
+ // retrieval of books
+ const booksCollection = collection(db, 'books');
+
+onSnapshot(booksCollection, snapshot => {
+  const tableBody = document.getElementById('books-table-body');
+  tableBody.innerHTML = '';
+  snapshot.forEach(doc => {
+    const book = doc.data();
+    const row = `
+      <tr class="hover:bg-zinc-50">
+        <td class="border border-zinc-300 px-4 py-2">${book.category}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.bookId}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.title}</td>
+        <td class="border border-zinc-300 px-4 py-2">
+          <img src="${book.img}" width="70" />
+        </td>
+        <td class="border border-zinc-300 px-4 py-2">${book.uploadedAt}</td>
+        
+
+  <td>
+ 
+</td>
+
+      </tr>
+    `;
+    tableBody.innerHTML += row;
+  });
+});
+//book row per page function
+
+
+
+
+// upload books
+
+
+
+  </script>
+
+
+
+
+
+</body>
+</html>

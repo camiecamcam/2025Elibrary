@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyCbWyVqhZdWL5tGF5Y2YXRpY5PJLC0ee6M",
+          authDomain: "elibrarylogin-3d7e6.firebaseapp.com",
+          projectId: "elibrarylogin-3d7e6",
+          storageBucket: "elibrarylogin-3d7e6.appspot.com",
+          messagingSenderId: "872832392728",
+          appId: "1:872832392728:web:10489984713141407ded6d"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Initialize the auth service
+        const db = getFirestore(app); // Initialize Firestore
+        
+        function redirectToDashboard(uid, role) {
+            setTimeout(function() {
+                // Ensure correct URL format and parameter encoding
+                window.location.href = `/dashboardfaculty.html?role=${encodeURIComponent(role)}&uid=${encodeURIComponent(uid)}`;
+            }, 3000); // Redirect after 3 seconds
+        }
+        
+        // Example usage
+        const user = { uid: 'exampleUID' }; // Replace with actual user object or function to get user details
+        const role = 'faculty'; // Example role
+        redirectToDashboard(user.uid, role);
+        </script>
+</head>
+<body onload="redirectToDashboard()">
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Logging In, please wait...</p>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+}
+
+.loading-container {
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #0022fe;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+p {
+    color: #333;
+    font-size: 18px;
+}
+
+</style>

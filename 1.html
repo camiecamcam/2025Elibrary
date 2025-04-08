@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISBN Lookup</title>
+    <style>
+        #cover {
+            cursor: pointer;
+        }
+        #large-cover {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        #large-cover img {
+            max-width: 90%;
+            max-height: 80vh;
+        }
+        #close-cover {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <label for="isbn">Enter ISBN:</label>
+    <input type="text" id="isbn">
+    <button onclick="fetchBookDetails()">Get Book Details</button>
+
+    <h2>Book Details</h2>
+    <p><strong>Title:</strong> <span id="title"></span></p>
+    <p><strong>Author(s):</strong> <span id="author"></span></p>
+    <p><strong>Publisher:</strong> <span id="publisher"></span></p>
+    <p><strong>Publish Date:</strong> <span id="publish_date"></span></p>
+    <p><strong>Number of Pages:</strong> <span id="pages"></span></p>
+    <p><strong>Subjects:</strong> <span id="subjects"></span></p>
+    <p><strong>ISBN(s):</strong> <span id="isbn_list"></span></p>
+    <p><strong>Language:</strong> <span id="language"></span></p>
+    <p><strong>Description:</strong> <span id="description"></span></p>
+    <p><strong>Cover:</strong> <br> 
+        <img id="cover" src="" alt="Book Cover" style="max-width: 150px;">
+    </p>
+
+    <div id="large-cover">
+        <span id="close-cover" onclick="closeCover()">X</span>
+        <img id="large-cover-img" src="" alt="Large Book Cover">
+    </div>
+
+    <script>
+        function fetchBookDetails() {
+            const isbn = document.getElementById("isbn").value;
+            const url = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const book = data[`ISBN:${isbn}`];
+                    if (book) {
+                        document.getElementById("title").innerText = book.title || "N/A";
+                        document.getElementById("author").innerText = book.authors ? book.authors.map(a => a.name).join(", ") : "N/A";
+                        document.getElementById("publisher").innerText = book.publishers ? book.publishers.map(p => p.name).join(", ") : "N/A";
+                        document.getElementById("publish_date").innerText = book.publish_date || "N/A";
+                        document.getElementById("pages").innerText = book.number_of_pages || "N/A";
+                        document.getElementById("subjects").innerText = book.subjects ? book.subjects.map(s => s.name).join(", ") : "N/A";
+                        document.getElementById("isbn_list").innerText = book.identifiers?.isbn_10 ? book.identifiers.isbn_10.join(", ") : "N/A";
+                        document.getElementById("language").innerText = book.language || "N/A";
+                        document.getElementById("description").innerText = book.description ? book.description.value : "No description available.";
+                        document.getElementById("cover").src = book.cover ? book.cover.medium : "";
+                        
+                        // Check if a PDF URL exists
+                        const pdfUrl = book.works && book.works[0].key ? `https://openlibrary.org${book.works[0].key}/print` : null;
+
+                        // Set up click event for cover
+                        document.getElementById("cover").onclick = function() {
+                            if (pdfUrl) {
+                                window.open(pdfUrl, "_blank");
+                            } else {
+                                alert("PDF not available for this book.");
+                            }
+                        };
+
+                    } else {
+                        alert("No book found for this ISBN.");
+                    }
+                })
+                .catch(error => console.error("Error fetching book data:", error));
+        }
+
+        function openLargeCover(coverUrl) {
+            if (coverUrl) {
+                document.getElementById("large-cover-img").src = coverUrl;
+                document.getElementById("large-cover").style.display = "block";
+            }
+        }
+
+        function closeCover() {
+            document.getElementById("large-cover").style.display = "none";
+        }
+    </script>
+</body>
+</html>

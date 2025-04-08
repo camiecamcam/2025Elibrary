@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<html>
+  <style>
+  #img {
+    position: relative; /* Ensure positioning context for absolute children */
+    overflow: hidden;   /* Hide overflowed content */
+  }
+
+  #cover-preview {
+    position: absolute; /* Position image within the container */
+    top: 0;
+    left: 0;
+    width: 100%;        /* Make the image width fit the container */
+    height: 100%;       /* Make the image height fit the container */
+    object-fit: cover;  /* Maintain aspect ratio while covering the container */
+    display: block;     /* Ensure image is visible */
+  }
+
+  #cover-text {
+    position: absolute; /* Position text over the image if needed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Ensure text appears on top of the image */
+  }
+</style>
+
+  <style>
+    .top-bar {
+       background-color: #01579B;
+       color: #FFFFFF;
+       padding: 5px;
+       margin-top: auto;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-left: auto;
+       margin-right: auto;
+   }
+
+   .top-bar .title {
+       font-size: 2rem;
+       margin-left: 290px;
+       font-weight: 600;
+   }
+   .top-bar .icons {
+   display: flex;
+   margin-top: 5px;
+   margin-bottom: 5px;
+   margin-right: 20px;
+   align-items: center;
+   gap: 2rem;
+}
+
+
+   .top-bar .icons img {
+       width: 2rem;
+       height: 2rem;
+       border-radius: 50%;
+       transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+       cursor: pointer;
+   }
+
+   .top-bar .icons img:hover {
+       transform: scale(1.3);
+   }
+
+
+
+   .top-bar .icons .notification {
+       position: relative;
+   }
+
+   .top-bar .icons .notification span {
+       position: absolute;
+       top: 0;
+       right: 0;
+       width: 1rem;
+       height: 1rem;
+       background-color: #0dff00;
+       border-radius: 50%;
+   }
+
+   .sidebar {
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ width: 260px;
+ background-color: #2C384A;
+ color: #FFFFFF;
+ padding: 1rem;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ overflow-y: auto;
+ scrollbar-width: thin; /* for Firefox */
+ -ms-overflow-style: -ms-autohiding-scrollbar; /* for IE and Edge */
+}
+
+.sidebar .logo {
+ font-size: 1.3rem;
+ font-weight: 600;
+ margin-bottom: 1rem;
+}
+
+.sidebar img {
+ width: 170px;
+ margin-bottom: 1rem;
+}
+
+.sidebar nav {
+ flex-grow: 1;
+ margin-top: 2rem;
+}
+
+.sidebar nav a {
+ display: flex;
+ align-items: center;
+ padding: 0.3rem 0.3rem;
+ color: #FFFFFF;
+ text-decoration: none;
+ transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar nav a:hover {
+ color: #79aefd;
+}
+
+.sidebar nav a img {
+ width: 40px;
+ height: 40px;
+ margin-right: 1rem;
+ margin-top: 20px;
+}
+
+.sidebar nav a span {
+ font-size: 1rem;
+ font-weight: 500;
+}
+
+   .main-content {
+       margin-left: 260px;
+       padding-left: 40px;
+       padding-right: 20px;
+       padding-bottom: 70px;
+       margin-top: 1px;
+   }
+
+   .card {
+       background-color: #FFFFFF;
+       padding: 1rem;
+       border: 1px solid #CCCCCC;
+       border-radius: 10px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+
+   .card h2 {
+       margin-top: 0;
+   }
+
+   #chatheadsnotif {
+   transition: transform 0.3s ease-in-out;
+ }
+
+ #chatheadsnotif:hover {
+   transform: scale(1.2);
+ }
+
+ #chatheadsnotif.expanded {
+   transform: scale(1.5);
+ }
+
+ #chatheadsnotif.expanded #chatheads {
+   width: 80px;
+   height: 80px;
+ }
+
+ #chatheadsnotif.expanded .absolute {
+   bottom: -10px;
+   right: -10px;
+ }
+ .upload-button {
+ position: relative;
+ overflow: hidden;
+ display: inline-block;
+}
+
+
+
+.upload-button  {
+ background-color: #01579B;
+ color: #fff;
+ padding: 5px 10px; 
+ border-radius: 20px;
+ margin-top: 10px;
+ margin-bottom: 10px;
+
+ border: none;
+ border-radius: 5px;
+ ;
+}
+
+.upload-button:hover {
+ background-color: #559af5;
+ ;
+}
+
+.upload-button:active {
+ background-color: #539cf0;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ ;
+
+}
+
+th.border{
+ background-color: #01579B;
+ color:white;
+ text-align: center;
+}
+ </style>
+ 
+<style>
+ #book-icon {
+ transition: transform 0.5s; /* add transition effect */
+}
+
+#book-icon:hover {
+ transform: scale(1.1); /* scale up by 10% on hover */
+}
+
+
+body {
+ overflow: -moz-scrollbars-none;
+ -ms-overflow-style: none;
+}
+
+:root {
+ scrollbar-width: none !important;
+}
+.search-bar {
+ width: 300px;
+ position: absolute;
+ top: 50; /* changed to 0 to make it on top */
+ left: 50%;
+ transform: translateX(-50%);
+ z-index: 3; /* added to make it on top of everything */
+}
+
+#search-input {
+ flex: 2;
+ width: 400px;
+ padding: 10px;
+ color: black;
+ font-size: 12px;
+ border: none;
+ border-radius: 10px 10px 10px 10px;
+}
+
+
+
+.suggestions {
+ position: absolute;
+ top: 35px;
+ background-color: #f9f9f9;
+ border: 1px solid #ccc;
+ padding: 10px;
+ width: 400px;
+ display: none;
+ color: black;
+ z-index: 3; /* added to make it on top of everything */
+ overflow-y: auto; /* add this */
+ max-height: 350px; /* or a fixed height */
+}
+
+.like-dislike-bar {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 5px;
+  overflow: hidden; /* To handle smooth collisions at the edges */
+}
+
+.like-bar {
+  background-color: green;
+  height: 100%;
+  transition: width 0.3s ease; /* Smooth transition when percentages change */
+}
+
+.dislike-bar {
+  background-color: red;
+  height: 100%;
+  transition: width 0.3s ease; /* Smooth transition when percentages change */
+}
+
+#dropdown {
+    background-color: #01579B;
+    border: 1px solid #ccc;
+    width: 200px;
+    padding: 10px;
+    position: fixed;  /* Keeps it fixed on the screen */
+    top: 100px;  /* Adjust this as needed */
+    left: 665px;  /* Adjust this as needed */
+    z-index: 2147483647;  /* Max value for z-index, ensures it's the topmost */
+    display: none;  /* Initially hidden */
+}
+
+#dropdown ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#dropdown li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#dropdown li:hover {
+    background-color: #ddd;
+}
+
+
+
+
+td {
+  text-align: center;
+  border-width: 50px; /* Increased border thickness */
+  border-style: solid;
+  border-color: #ccc; /* Light gray border color */
+}
+.suggestions ul {
+list-style: none;
+ padding: 0;
+ margin: 0;
+}
+
+.suggestions li {
+ padding: 10px;
+ border-bottom: 1px solid #ccc;
+ display: flex;
+ align-items: center;
+}
+
+.suggestion-photo {
+ width: 30px;
+ height: 30px;
+ margin-right: 10px;
+ border-radius: 50%;
+}
+
+.suggestions li:hover {
+ background-color: #d1cfcf;
+ cursor: pointer;
+}
+
+#search-input:focus + .suggestions {
+ display: block;
+}
+
+
+
+.show {
+ display: block; /* show the search bar wh en the show    is added */
+}
+
+
+
+
+
+
+.sidebar nav a1 {
+       display: flex;
+       align-items: center;
+       padding: 0.3rem 0.3rem;
+       color: #79aefd;
+       text-decoration: none;
+       transition: background-color 0.3s ease-in-out;
+   }
+  
+   
+
+   
+   .sidebar nav a1:hover{
+     color: #79aefd;
+   }
+
+   .sidebar nav a1 img {
+       width: 40px;
+       height: 40px;
+       margin-right: 1rem;
+       margin-top: 20px;
+   }
+  
+   .sidebar nav a1 span {
+       font-size: 1rem;
+       font-weight: 500;
+   }
+
+
+   select {
+ width: 200px; /* adjust the width as needed */
+ padding: 10px;
+ border: 1px solid #232121;
+ border-radius: 5px;
+ margin-top: 35px;
+ font-size: 16px;
+ margin-bottom: 20px;
+}
+
+
+.notification-panel {
+ transform: translateX(100%);
+ transition: transform 0.3s ease-in-out;
+}
+
+.notification-panel.show {
+ transform: translateX(0);
+}
+
+.close-button {
+ cursor: pointer;
+}
+
+
+.edit-button{
+ width: 10%;
+}
+.delete-button{
+ width: 10% ; 
+}
+
+
+
+</style>
+
+<head>
+    
+  </head>
+  
+  <div class="sidebar">
+    <div class="logo">STI VIGAN E-LIBRARY</div>
+    <img src="../image/sti logo 4 (2).png" alt="STI Logo" />
+    <nav>
+      <a  href="/dashboard2.html">
+          <img src="../image/home.png" alt="Others Icon" />
+          <span>Dashboard</span>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7"/>
+          </svg>
+      </a>
+      <a1 href="/catalog.html">
+          <img src="../image/catalog.png" alt="Others Icon" />
+          <span>Catalogs</span>
+         
+      </a1>
+      <a href="/archive.html">
+        <img src="../image/catalog.png" alt="Others Icon" />
+        <span>Archive </span>
+       
+    </a>
+      <a href="/StudentsUploading.html">
+        <img src="../image/user (1).png" alt="Others Icon" />
+        <span>Students</span>
+       
+    </a>
+    
+     
+      
+      <a href="#" id="logoutbutton">
+        <img src="../image/logout.png"  />
+        <span>Log-out</span>
+
+      
+    </a>
+  </nav>
+</div>
+
+  <body>
+    <div class="top-bar">
+      <div class="title">Catalogs</div>
+      <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Search..." autocomplete="off" >
+        <div class="suggestions">
+          <ul>
+            <!--BOOKS-->
+            <p id="booksCollectiones"><b>Books</b></p>
+            <li>
+              <img id="books1" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book1-name"></span>
+            </li>          
+            <li>
+              <img id="books2" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book2-name"></span>
+            </li>   
+            <li>
+              <img id="books3" src="../image/icons8-books-48.png" alt="photo" class="suggestion-photo">
+              <span id="book3-name"></span>
+            </li>   
+            <!--sTUDENTS-->
+            <p id="studentCollectiones"><b>Students</b></p>
+            <li>
+              <img id="users1" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user1-name"></span>
+            </li>   
+            <li>
+              <img id="users2" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user2-name"></span>
+            </li>   
+            <li>
+              <img id="users3" src="../image/student.png" alt="photo" class="suggestion-photo">
+              <span id="user3-name"></span>
+            </li>
+            <!--teachers-->
+            <p id="teachersCollectiones"><b>Faculty</b></p>
+            <li>
+              <img id="teachers1" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers1-name"></span>
+            </li>   
+            <li>
+              <img id="teachers2" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers2-name"></span>
+            </li>   
+            <li>
+              <img id="teachers3" src="../image/teacher.png" alt="photo" class="suggestion-photo">
+              <span id="teachers3-name"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+      <div class="icons">
+       
+        
+        
+        <div class="notification" >
+        </div>
+      
+      </div>
+    </div>
+   
+    </div>
+   
+   
+
+    
+
+    <div class="fixed bottom-0 w-full bg-zinc-900 py-2 px-4 flex justify-end items-center">
+    </div>
+
+    <!--This is the main content-->
+    <div class="main-content">
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+      
+     
+
+
+
+
+        <!--main content here-->
+
+
+   
+        
+        <div id="add" class="upload-button">
+          <input style="display: none;">
+          <label   id="add"   >Manual Add</label>
+        </div>
+
+        <div  id="AuthorsPage" class="upload-button">
+          <a href="Authors.html">
+            <label id="AuthorsPage" for="file-input">Authors</label>
+          </a>
+        </div>
+        
+        
+        <div   id="refreshLabel" class="upload-button">
+          <input style="display: none;" id="refreshInput" type="file">
+          <label for="refreshInput" id="refreshLabel">Refresh</label>
+        </div>
+       
+        
+        
+
+       
+             
+    
+<!-- Books Retrieval-->
+<div class="overflow-x-auto">
+  <table class="min-w-full border-collapse border border-zinc-200">
+    <thead>
+      <tr>
+        <th id="th" class="border border-zinc-300 bg-zinc-100 px-4 py-2">CATEGORY</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">ID</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">TITLE</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">AUTHORS</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">PUBLISHER</th>
+        <th class="border border-zinc-300 px-4 py-2">PROGRAM</th>
+
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">MEDIA TYPES</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">YEAR</th>
+
+
+
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">FRONT PAGE</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2 " >DATE ADDED</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">LIKE/DISLIKE</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">TOTAL VIEWS</th>
+        <th class="border border-zinc-300 bg-zinc-100 px-4 py-2">QR CODE</th>
+
+
+
+
+       
+        </th>
+
+      </tr>
+    </thead>
+    <tbody id="books-table-body">
+      <!-- data will be rendered here -->
+    </tbody>
+  </table>
+</div>
+<!--sidebar Notification-->
+<div class="fixed top-0 right-0 flex items-center justify-center bg-white notification-panel" id="notification-panel">
+  <div class="bg-card rounded-lg shadow-lg p-6 w-80">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold text-foreground">Notifications</h2>
+      <button class="text-muted-foreground hover:text-muted close-button" id="close-button">×</button>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded-lg shadow-md">
+        <h3 class="font-semibold">Text</h3>
+        <p class="text-muted-foreground">Descriptions</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+        <!--up to here-->
+    </body>
+
+
+
+
+
+
+
+<!-- Search-->
+  
+
+
+<!--Logout pop up-->
+
+  <div id="logout"  style="display:none">
+
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+        <div class="flex justify-between items-center border-b border-red-200 pb-2">
+            <h2 class="text-red-600 dark:text-red-400 text-lg font-semibold">Log out</h2>
+            <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="changepassword"   >×</button>
+        </div>
+        <div class="flex items-center py-4">
+            <img aria-hidden="true" alt="alert icon" src="../image/set-of-error-icon-information-logo-illustration-vector.png" height="80px" width="80px" class="rounded-full mr-4  " crossorigin="anonymous">
+            <div>
+                <h3 class="text-lg font-semibold text-red-600 dark:text-red-400">Are You Sure you want to logout?</h3>
+                <p class="text-zinc-600 dark:text-zinc-300"></p>
+            </div>
+        </div>
+        <div class="flex justify-end space-x-2 mt-4">
+          <button  class="bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="changepassword1"    >Cancel</button>
+          <button class="bg-red-600 text-white rounded-lg py-2 px-4" id="confirm-logout" >Log me out</button>
+          </div>
+    </div>
+</div>
+</div>
+
+
+<!--Updating book-->
+
+
+<div id="updatedSuccesfully" style="display:none;"  >
+
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+      <div class="flex justify-between items-center border-b border-red-200 pb-2">
+          <h2 class="text-blue-600 dark:text-blue-400 text-lg font-semibold">Updated Book</h2>
+          <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="changepassword"   >×</button>
+      </div>
+      <div class="flex items-center py-4">
+          <img aria-hidden="true" alt="alert icon" src="../image/check.png" height="80px" width="80px" class="rounded-full mr-4  " crossorigin="anonymous">
+          <div>
+              <h3 class="text-lg font-semibold text-white-600 dark:text-blue-400">Book Information updated successfully <h3>
+              <p class="text-zinc-600 dark:text-zinc-300"></p>
+          </div>
+      </div>
+      <div class="flex justify-end space-x-2 mt-4">
+        <button  class="bg-blue-600  text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="updatedSuccesfullyOk"    >Ok</button>
+        </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!--Book Arcvhived Succesfully-->
+
+
+<div id="archivedSuccesfully" style="display:none;"  >
+
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+      <div class="flex justify-between items-center border-b border-red-200 pb-2">
+          <h2 class="text-blue-600 dark:text-blue-400 text-lg font-semibold">Archived Book</h2>
+          <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="changepassword"   >×</button>
+      </div>
+      <div class="flex items-center py-4">
+          <img aria-hidden="true" alt="alert icon" src="../image/check.png" height="80px" width="80px" class="rounded-full mr-4  " crossorigin="anonymous">
+          <div>
+              <h3 class="text-lg font-semibold text-white-600 dark:text-blue-400">Book archived successfully <h3>
+              <p class="text-zinc-600 dark:text-zinc-300"></p>
+          </div>
+      </div>
+      <div class="flex justify-end space-x-2 mt-4">
+        <button  class="bg-blue-600  text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="archivedSuccesfullyOk"    >Ok</button>
+        </div>
+  </div>
+</div>
+</div>
+
+<!--Added Book-->
+
+<div id="addedBook" style="display:none;"  >
+
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-96 p-4">
+      <div class="flex justify-between items-center border-b border-red-200 pb-2">
+          <h2 class="text-blue-600 dark:text-blue-400 text-lg font-semibold">Added Book</h2>
+          <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" id="changepassword"   >×</button>
+      </div>
+      <div class="flex items-center py-4">
+          <img aria-hidden="true" alt="alert icon" src="../image/check.png" height="80px" width="80px" class="rounded-full mr-4  " crossorigin="anonymous">
+          <div>
+              <h3 class="text-lg font-semibold text-white-600 dark:text-blue-400">Book Added successfully <h3>
+              <p class="text-zinc-600 dark:text-zinc-300"></p>
+          </div>
+      </div>
+      <div class="flex justify-end space-x-2 mt-4">
+        <button  class="bg-blue-600  text-zinc-800 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-600 rounded-lg py-2 px-4"  id="addedBookOK"    >Ok</button>
+        </div>
+  </div>
+</div>
+</div>
+
+
+<!--Popup-->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto z-50" id="addbooks" style="display:none;">
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-card rounded-lg p-5 shadow-lg w-96">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold"  >ADD</h2>
+        <button class="text-xl" id="closeaddbooks3"></button>
+      </div>
+      <div class="overflow-y-auto h-96"> <!-- Add this wrapper element -->
+        <form>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">TITLE</label>
+          <input  id="title"   type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">MEDIA TYPE</label>
+          <select  id="mediaType"  class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">
+            <option value="">Select Media Type</option>
+            
+            <option id="audioVisuals"> Audio / Visuals</option>
+            <option id="books"> Books</option>
+            <option id="textebooks"> E-Books</option>
+            <option id="ejournals"> E-Journals</option>
+            <option id="journals"> Journals</option>
+            <option id="magazine"> Magazine</option>
+            <option id="presentation"> Presentation</option>
+            <option id="research"> Research</option>
+
+
+
+
+            
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">AUTHORS</label>
+          <input id="authors" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">ISBN</label>
+          <input id="isbn"  type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">PUBLISHER</label>
+          <input id="publisher" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">SUBJECT</label>
+          <input id="subject" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label  class="block text-sm font-medium text-zinc-700 black:text-zinc-300">STRAND/COURSE</label>
+          <input id="strandsCourses"     type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">CATEGORY</label>
+          <input id="category"     type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">FULL DESCRIPTION</label>
+          <textarea  id="fulldescription" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"></textarea>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">YEAR</label>
+          <input id="year"  type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">VOLUME</label>
+          <input id="volume"  type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black:text-zinc-300">PAGE</label>
+          <input  id="pages" type="text" class="mt-1 block w-full border border-zinc-300 rounded-md shadow-sm focus:ring-primary focus:border-primary" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-zinc-700 black :text-zinc-300">Add Book Cover</label>
+          <div id="img" class="border-dashed border-2 border-zinc-300 rounded-md h-40 flex items-center justify-center text-zinc-500">
+            <span id="cover-text">Add Book Cover</span>
+            <img id="cover-preview" src="" alt="Book Cover" class="hidden w-full h-full object-contain">
+          </div>
+          <input id="coverInput" type="file" accept="image/*" class="hidden" />
+          <input id="pdfLink" type="file" class="custom-file-input mt-2" />
+        </div>
+        
+
+        </div>
+        <div class="flex justify-between">
+          <button  class="bg-primary text-primary-foreground hover:bg-primary/80 px-4 py-2 rounded-md"  id="closeaddbooks1">ADD</button>
+          <button type="button" class="bg-red-500 border border-zinc-300 rounded-md px-4 py-2 hover:bg-red-800 text-white " id="closeaddbooks">CANCEL</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="yeseditInfo" style="display:none">
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-11/12 sm:w-[600px] p-2 max-h-[80vh] overflow-y-auto flex">
+      <!-- Form section -->
+      <div class="flex-1 pr-4">
+        <div class="flex justify-between items-center border-b border-blue-200 pb-1">
+          <h2 class="text-blue-600 dark:text-blue-400 text-base font-semibold">Update Information</h2>
+          <button class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 text-sm" id="yeseditInfocancel2">×</button>
+        </div>
+        <div class="flex items-center py-1">
+          <img aria-hidden="true" alt="alert icon" src="/image/pen.png" height="40px" width="30px" class="rounded-full mr-2" crossorigin="anonymous">
+          <div>
+            <h3 class="text-base font-semibold text-blue-600 dark:text-blue-400" id="clickedRowtoShowonEdit">Edit</h3>
+          </div>
+        </div>
+        <div class="py-1 space-y-1">
+          <label for="editTitle" class="text-xs font-medium text-blue-200">Title</label>
+          <input type="text" id="editTitle" class="w-full px-2 py-1 border rounded" />
+
+          <label for="editMediaType" class="text-xs font-medium text-blue-200">Media Type</label>
+          <input type="text" id="editMediaType" class="w-full px-2 py-1 border rounded" />
+          
+          <label for="editAuthors" class="text-xs font-medium text-blue-200">Authors</label>
+          <input type="text" id="editAuthors" class="w-full px-2 py-1 border rounded" />
+          
+          <label for="editIsbn" class="text-xs font-medium text-blue-200">ISBN</label>
+          <input type="text" id="editIsbn" class="w-full px-2 py-1 border rounded" />
+
+          <label for="editPublisher" class="text-xs font-medium text-blue-200">Publisher</label>
+          <input type="text" id="editPublisher" class="w-full px-2 py-1 border rounded" />
+
+          <label for="editSubject" class="text-xs font-medium text-blue-200">Subject</label>
+          <input type="text" id="editSubject" class="w-full px-2 py-1 border rounded" />
+
+          
+          <label for="editStrandsCourses" class="text-xs font-medium text-blue-200">Program</label>
+          <input type="text" id="editStrandsCourses" class="w-full px-2 py-1 border rounded" />
+
+          <label for="editCategory" class="text-xs font-medium text-blue-200">Category</label>
+          <input type="text" id="editCategory" class="w-full px-2 py-1 border rounded" />
+
+          <label for="editDescription" class="text-xs font-medium text-blue-200">Full Description</label>
+          <textarea id="editDescription" class="w-full px-2 py-1 border rounded"></textarea>
+          
+          <label for="editPages" class="text-xs font-medium text-blue-200">Pages</label>
+          <input type="text" id="editPages" class="w-full px-2 py-1 border rounded" />
+        </div>
+        
+        <div class="flex justify-end space-x-1 mt-3">
+          <button class="bg-red-600 dark:text-zinc-300 border rounded py-1 px-2 text-white text-sm" id="yeseditInfocancel">Cancel</button>
+          <button class="bg-red-600 dark:text-zinc-300 border rounded py-1 px-2 text-white text-sm" id="archiveBook">Archive</button>
+          <button id="saveChanges" class="bg-blue-600 text-white rounded py-1 px-2 text-sm">Save Changes</button>
+        </div>
+      </div>
+
+<!-- Photo section on the right -->
+<div class="flex-shrink-0 w-1/3 p-2 relative group">
+  <div class="border rounded-lg shadow-lg overflow-hidden relative">
+    <!-- Image container with a fixed aspect ratio -->
+    <img id="modalPhoto" src="" alt="Photo" class="w-full h-auto rounded-t-lg object-cover" />
+    
+    <!-- Overlay text when hovered -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- Search-->
+
+
+
+
+
+
+
+
+<!-- Firebase Function-->
+ 
+<script src="https://cdn.firebase.com/libs/firebasejs/9.6.1/firebase-app.js" defer></script>
+      <script src="https://cdn.firebase.com/libs/firebasejs/9.6.1/firebase-auth.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
+
+      
+      <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+import { getFirestore, getDocs, query, where,doc,setDoc,deleteDoc,getDoc,updateDoc,addDoc} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import{collection,onSnapshot}from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import {   getStorage, 
+  ref, 
+  uploadBytes, 
+  getDownloadURL } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-storage.js";
+import { getAuth, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+import { signInWithEmailAndPassword ,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+      
+        const firebaseConfig = {
+          apiKey: "AIzaSyCbWyVqhZdWL5tGF5Y2YXRpY5PJLC0ee6M",
+  authDomain: "elibrarylogin-3d7e6.firebaseapp.com",
+  projectId: "elibrarylogin-3d7e6",
+  storageBucket: "elibrarylogin-3d7e6.appspot.com",
+  messagingSenderId: "872832392728",
+  appId: "1:872832392728:web:10489984713141407ded6d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app); // Storage instance
+
+
+        //logoutbutton on dashboard
+     // Select the logout button and the modal
+const logoutButton = document.getElementById('logoutbutton'); // assume this is the ID of the logout button
+const logoutModal = document.getElementById('logout');
+
+// Add an event listener to the logout button
+logoutButton.addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'block'; // show the modal
+});
+
+// Add an event listener to the cancel button
+document.getElementById('changepassword').addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'none'; // hide the modal
+});
+
+document.getElementById('changepassword1').addEventListener('click', function() {
+    // Toggle the display property of the modal
+    logoutModal.style.display = 'none'; // hide the modal
+});
+
+document.getElementById('confirm-logout').addEventListener('click', function() {
+    signOut(auth).then(() => {
+        // Clear browser history to prevent back button navigation
+        window.location.href = '/logoutloading.html'; // Redirect to login page
+        history.pushState(null, null, window.location.href); 
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    }).catch((error) => {
+        console.error('Error signing out:', error);
+        alert('Error signing out. Please try again.');
+    });
+});
+
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        // User is not signed in, redirect to login page
+        window.location.href = '/index.html'; // Redirect to login page
+    }
+});
+  //logoutbutton on pop up
+  
+const updateUI = (searchTerm) => {
+    const filteredUsers = sortedUserDocs.filter((doc) => {
+        const fullName = `${doc.data().firstname} ${doc.data().middlename} ${doc.data().lastname}`;
+        return fullName.toLowerCase().includes(searchTerm);
+    });
+
+    const filteredBooks = sortedBookDocs.filter((doc) => {
+        const title = doc.data().title.toLowerCase();
+        return title.includes(searchTerm);
+    });
+
+    const filteredFaculty = sortedFacultyDocs.filter((doc) => {
+        const email = doc.data().email.toLowerCase();
+        return email.includes(searchTerm);
+    });
+
+    // Update UI for users
+    let hasUsers = false;
+    for (let i = 1; i <= 3; i++) {
+        const userNameElement = document.getElementById(`user${i}-name`);
+        const userItemElement = userNameElement.parentElement; // Get the <li> element
+
+        if (i <= filteredUsers.length) {
+            const data = filteredUsers[i - 1].data();
+            const fullName = `${data.firstname} ${data.middlename} ${data.lastname}`;
+            userNameElement.textContent = fullName;
+            userItemElement.style.display = ''; // Show the list item
+            hasUsers = true;
+        } else {
+            userNameElement.textContent = '';
+            userItemElement.style.display = 'none'; // Hide the list item
+        }
+    }
+
+    // Show or hide the Students section
+    const studentsSection = document.getElementById('studentCollectiones');
+    if (hasUsers) {
+        studentsSection.style.display = ''; // Show the section if there are users
+    } else {
+        studentsSection.style.display = 'none'; // Hide the section if no users
+    }
+
+    
+
+    // Show or hide the Books section
+    const booksSection = document.getElementById('booksCollectiones');
+    if (hasBooks) {
+        booksSection.style.display = ''; // Show the section if there are books
+    } else {
+        booksSection.style.display = 'none'; // Hide the section if no books
+    }
+
+    // Update UI for faculty members
+    let hasFaculty = false;
+    for (let i = 1; i <= 3; i++) {
+        const facultyNameElement = document.getElementById(`teachers${i}-name`);
+        const facultyItemElement = facultyNameElement.parentElement; // Get the <li> element
+
+        if (i <= filteredFaculty.length) {
+            const email = filteredFaculty[i - 1].data().email;
+            facultyNameElement.textContent = email;
+            facultyItemElement.style.display = ''; // Show the list item
+            hasFaculty = true;
+        } else {
+            facultyNameElement.textContent = '';
+            facultyItemElement.style.display = 'none'; // Hide the list item
+        }
+    }
+
+
+
+    
+    // Show or hide the Faculty section
+    const facultySection = document.getElementById('teachersCollectiones');
+    if (hasFaculty) {
+        facultySection.style.display = ''; // Show the section if there are faculty members
+    } else {
+        facultySection.style.display = 'none'; // Hide the section if no faculty members
+    }
+
+    // Add search for row text content
+    
+};
+
+
+
+//search function // // // // // // // //
+
+
+window.onload = async function() {
+    try {
+        // Fetch and sort users
+        const usersCollection = collection(db, 'users');
+        const userSnapshot = await getDocs(usersCollection);
+        const userDocs = userSnapshot.docs;
+
+        const sortedUserDocs = userDocs.sort((a, b) => {
+            const fullNameA = `${a.data().firstname} ${a.data().middlename} ${a.data().lastname}`;
+            const fullNameB = `${b.data().firstname} ${b.data().middlename} ${b.data().lastname}`;
+            return fullNameA.localeCompare(fullNameB);
+        });
+
+        // Fetch and sort books
+        const booksCollection = collection(db, 'books');
+        const bookSnapshot = await getDocs(booksCollection);
+        const bookDocs = bookSnapshot.docs;
+
+        const sortedBookDocs = bookDocs.sort((a, b) => {
+            const titleA = a.data().title;
+            const titleB = b.data().title;
+            return titleA.localeCompare(titleB);
+        });
+
+        // Fetch and sort faculty members
+        const facultyCollection = collection(db, 'faculty');
+        const facultySnapshot = await getDocs(facultyCollection);
+        const facultyDocs = facultySnapshot.docs;
+
+        const sortedFacultyDocs = facultyDocs.sort((a, b) => {
+            const emailA = a.data().email;
+            const emailB = b.data().email;
+            return emailA.localeCompare(emailB);
+        });
+
+        // Function to update the UI for users, books, and faculty members
+        const updateUI = (searchTerm) => {
+            const filteredUsers = sortedUserDocs.filter((doc) => {
+                const fullName = `${doc.data().firstname} ${doc.data().middlename} ${doc.data().lastname}`;
+                return fullName.toLowerCase().includes(searchTerm);
+            });
+
+            const filteredBooks = sortedBookDocs.filter((doc) => {
+                const title = doc.data().title.toLowerCase();
+                return title.includes(searchTerm);
+            });
+
+            const filteredFaculty = sortedFacultyDocs.filter((doc) => {
+                const email = doc.data().email.toLowerCase();
+                return email.includes(searchTerm);
+            });
+
+            // Update UI for users
+            let hasUsers = false;
+            for (let i = 1; i <= 3; i++) {
+                const userNameElement = document.getElementById(`user${i}-name`);
+                const userItemElement = userNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredUsers.length) {
+                    const data = filteredUsers[i - 1].data();
+                    const fullName = `${data.firstname} ${data.middlename} ${data.lastname}`;
+                    userNameElement.textContent = fullName;
+                    userItemElement.style.display = ''; // Show the list item
+                    hasUsers = true;
+                } else {
+                    userNameElement.textContent = '';
+                    userItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Students section
+            const studentsSection = document.getElementById('studentCollectiones');
+            if (hasUsers) {
+                studentsSection.style.display = ''; // Show the section if there are users
+            } else {
+                studentsSection.style.display = 'none'; // Hide the section if no users
+            }
+
+            // Update UI for books
+            let hasBooks = false;
+            for (let i = 1; i <= 3; i++) {
+                const bookNameElement = document.getElementById(`book${i}-name`);
+                const bookItemElement = bookNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredBooks.length) {
+                    const title = filteredBooks[i - 1].data().title;
+                    bookNameElement.textContent = title;
+                    bookItemElement.style.display = ''; // Show the list item
+                    hasBooks = true;
+                } else {
+                    bookNameElement.textContent = '';
+                    bookItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Books section
+            const booksSection = document.getElementById('booksCollectiones');
+            if (hasBooks) {
+                booksSection.style.display = ''; // Show the section if there are books
+            } else {
+                booksSection.style.display = 'none'; // Hide the section if no books
+            }
+
+            // Update UI for faculty members
+            let hasFaculty = false;
+            for (let i = 1; i <= 3; i++) {
+                const facultyNameElement = document.getElementById(`teachers${i}-name`);
+                const facultyItemElement = facultyNameElement.parentElement; // Get the <li> element
+
+                if (i <= filteredFaculty.length) {
+                    const email = filteredFaculty[i - 1].data().email;
+                    facultyNameElement.textContent = email;
+                    facultyItemElement.style.display = ''; // Show the list item
+                    hasFaculty = true;
+                } else {
+                    facultyNameElement.textContent = '';
+                    facultyItemElement.style.display = 'none'; // Hide the list item
+                }
+            }
+
+            // Show or hide the Faculty section
+            const facultySection = document.getElementById('teachersCollectiones');
+            if (hasFaculty) {
+                facultySection.style.display = ''; // Show the section if there are faculty members
+            } else {
+                facultySection.style.display = 'none'; // Hide the section if no faculty members
+            }
+        };
+
+        // Add event listener to the search input
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            updateUI(searchTerm);
+        });
+
+        // Initial UI population with the first three users, books, and faculty members
+        updateUI('');
+    } catch (error) {
+        console.error("Error fetching users, books, or faculty members: ", error);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////BOOKS....................///////////////////////////////////
+
+//addbooks function pop up
+document.getElementById("add").addEventListener("click", function() {
+  document.getElementById("addbooks").style.display = "block";
+});
+
+var closeButton = document.getElementById("closeaddbooks");
+
+closeButton.addEventListener("click", function() {
+  addbooks.style.display = "none";
+});
+var closeButton1 = document.getElementById("closeaddbooks1");
+
+closeButton1.addEventListener("click", function() {
+  addbooks.style.display = "none";
+});
+
+//notification function 
+const notificationBell = document.getElementById('notificationbell');
+const notificationPanel = document.getElementById('notification-panel');
+const closerButton = document.getElementById('close-button');
+
+
+
+ // retrieval of books
+
+
+
+// Function to fetch and display books with sorting and filtering
+// Declare booksCollection globally
+const booksCollection = collection(db, "books"); // Firestore collection reference
+let selectedMediaType = null; // To store the selected media type
+let selectedBookId = null; // Declare the selectedBookId variable
+
+// Wait for the DOM to fully load before assigning the event listener to searchInput
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  const dropdown = document.getElementById("dropdown");
+  const tableBody = document.getElementById("books-table-body");
+
+  // Function to fetch and display books with sorting and filtering
+ // Function to fetch and display books with sorting and filtering
+function fetchBooks() {
+  onSnapshot(booksCollection, (snapshot) => {
+    tableBody.innerHTML = ""; // Clear the table before adding new rows
+
+    const books = snapshot.docs
+      .map((doc) => ({ ...doc.data(), id: doc.id }))
+      .sort((a, b) => b.bookId - a.bookId); // Sort by bookId in descending order
+
+    const filteredBooks = books.filter((book) => {
+      const query = searchInput.value.toLowerCase();
+      const matchesSearch = (book.title && book.title.toLowerCase().includes(query)) ||
+                            (book.bookId && book.bookId.toLowerCase().includes(query)) ||
+                            (book.authors && book.authors.toLowerCase().includes(query)) ||
+                            (book.publisher && book.publisher.toLowerCase().includes(query)) ||
+                            (book.strandsCourses && book.strandsCourses.toLowerCase().includes(query)) ||
+                            (book.formattedDate && book.formattedDate.toLowerCase().includes(query)) ||
+                            (book.year && book.year.toLowerCase().includes(query)) ||
+                            (book.viewCount && book.viewCount.toLowerCase().includes(query)) ||
+                            (book.mediaType && book.mediaType.toLowerCase().includes(query)) ||
+                            (book.category && book.category.toLowerCase().includes(query));
+      const matchesMediaType = selectedMediaType ? book.category === selectedMediaType : true;
+
+      return matchesSearch && matchesMediaType;
+    });
+
+    // Display the filtered books
+    filteredBooks.forEach((book) => {
+      const formattedDate = book.uploadedAt
+        ? new Date(book.uploadedAt).toLocaleString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+            hour12: true,
+          })
+        : "N/A";
+
+      const row = document.createElement("tr");
+      row.classList.add("hover:bg-zinc-50", "cursor-pointer");
+      const likes = book.like || 0;
+      const dislikes = book.dislike || 0;
+      const total = likes + dislikes;
+      const likePercentage = total > 0 ? (likes / total) * 100 : 0;
+      const dislikePercentage = total > 0 ? (dislikes / total) * 100 : 0;
+
+      row.innerHTML = `
+        <td class="border border-zinc-300 px-4 py-2">${book.category || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.bookId || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.title || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.authors || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.publisher || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.strandsCourses || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.mediaType || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">${book.year || "N/A"}</td>
+        <td class="border border-zinc-300 px-4 py-2">
+          <img src="${book.img || "placeholder.jpg"}" width="70" />
+        </td>
+        <td class="border border-zinc-300 px-4 py-2">${formattedDate}</td>
+        <td class="border border-zinc-300 px-4 py-2">
+          <div class="like-dislike-bar">
+            <div class="like-bar" style="width: ${likePercentage}%"></div>
+            <div class="dislike-bar" style="width: ${dislikePercentage}%"></div>
+          </div>
+          ${likes} / ${dislikes}
+        </td>
+        <td class="border border-zinc-300 px-4 py-2">${book.viewCount ?? 0}</td>
+        <!-- QR Code Column -->
+       <td class="border border-zinc-1000 px-8 py-2">
+  <img src="${book.qrCode || ''}" height="200" width="200" alt="QR Code"/>
+</td>
+
+      `;
+
+      row.addEventListener("click", () => {
+        const popup = document.getElementById("yeseditInfo");
+        const titleElement = document.getElementById("clickedRowtoShowonEdit");
+
+        titleElement.textContent = `Edit: ${book.title || "N/A"}`;
+        
+        selectedBookId = book.id;
+        
+        // Populate the form with the book data
+        document.getElementById("editTitle").value = book.title || "";
+        document.getElementById("editAuthors").value = book.authors || "";
+        document.getElementById("editCategory").value = book.category || "";
+        document.getElementById("editPublisher").value = book.publisher || "";
+        document.getElementById("editMediaType").value = book.mediaType || "";
+        document.getElementById("editDescription").value = book.fullDescription || "";
+        document.getElementById("editPages").value = book.pages || "";
+        document.getElementById("editSubject").value = book.subject || "";
+        document.getElementById("editStrandsCourses").value = book.strandsCourses || "";
+        document.getElementById("editIsbn").value = book.isbn || "";
+        
+        const photoUrl = book.img;
+        document.getElementById("modalPhoto").src = photoUrl || '/path/to/default/photo.jpg';
+
+        popup.style.display = "block"; // Show the popup
+      });
+
+      tableBody.appendChild(row);
+    });
+  });
+}
+
+
+  // Function to filter books based on search input
+  searchInput.addEventListener("input", fetchBooks);
+
+  // Initially fetch and display all books
+  fetchBooks();
+  // Save changes to the database when clicking the "saveChanges" button
+document.getElementById("saveChanges").addEventListener("click", async () => {
+  if (!selectedBookId) {
+    alert("No book selected for editing.");
+    return;
+  }
+
+  // Collect the updated data from the input fields
+  const updatedData = {
+    title: document.getElementById("editTitle").value.trim(),
+    authors: document.getElementById("editAuthors").value.trim(),
+    category: document.getElementById("editCategory").value.trim(),
+    publisher: document.getElementById("editPublisher").value.trim(),
+    mediaType: document.getElementById("editMediaType").value.trim(),
+    fullDescription: document.getElementById("editDescription").value.trim(),
+    pages: document.getElementById("editPages").value.trim(),
+    subject: document.getElementById("editSubject").value.trim(),
+    strandsCourses: document.getElementById("editStrandsCourses").value.trim(),
+
+    isbn: document.getElementById("editIsbn").value.trim(),
+    updatedAt: new Date().toISOString() // Optional: Add an updated timestamp
+  };
+
+  try {
+    // Reference to the specific document in the Firestore collection
+    const bookDocRef = doc(booksCollection, selectedBookId);
+    
+    // Update the document in Firestore
+    await updateDoc(bookDocRef, updatedData);
+
+    // Show modal on success
+    const modal = document.getElementById("updatedSuccesfully");
+    modal.style.display = "flex"; // Show the modal
+
+    // Close modal when "Ok" is clicked
+    document.getElementById("updatedSuccesfullyOk").addEventListener("click", function() {
+        modal.style.display = "none"; // Close the modal
+    });
+
+    
+    // Optionally close the popup
+    document.getElementById("yeseditInfo").style.display = "none";
+} catch (error) {
+    console.error("Error updating book:", error);
+    alert("Failed to update book information. Please try again.");
+}
+
+});
+
+});
+
+
+
+document.getElementById("archiveBook").addEventListener("click", async () => {
+  if (!selectedBookId) {
+    alert("No book selected for archiving.");
+    return;
+  }
+
+  try {
+  // Reference the selected book in the "books" collection
+  const bookDocRef = doc(booksCollection, selectedBookId);
+  
+  // Fetch the book data
+  const bookSnapshot = await getDoc(bookDocRef);
+  if (!bookSnapshot.exists()) {
+    alert("The selected book does not exist.");
+    return;
+  }
+  
+  const bookData = bookSnapshot.data();
+
+  // Add the book data to the "archive" collection
+  const archiveCollection = collection(db, "archive");
+  await addDoc(archiveCollection, {
+    ...bookData,
+    archivedAt: new Date().toISOString(), // Optionally add an archive timestamp
+  });
+
+  // Delete the book from the "books" collection
+  await deleteDoc(bookDocRef);
+
+  // Show success modal
+  document.getElementById("archivedSuccesfully").style.display = "flex";
+  
+  // Add event listener to close the modal when the "Ok" button is clicked
+  document.getElementById("archivedSuccesfullyOk").addEventListener('click', function() {
+    document.getElementById("archivedSuccesfully").style.display = "none";
+  });
+
+  // Add event listener to close the modal when the "×" button is clicked
+  document.getElementById("changepassword").addEventListener('click', function() {
+    document.getElementById("archivedSuccesfully").style.display = "none";
+  });
+
+  
+  // Close the previous modal
+  document.getElementById("yeseditInfo").style.display = "none";
+} catch (error) {
+  console.error("Error archiving book:", error);
+  alert("Failed to archive the book. Please try again.");
+}
+
+});
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const archiveButton = document.getElementById("archive");
+  if (archiveButton) {
+    archiveButton.addEventListener("click", async () => {
+      if (selectedBookId) {
+        try {
+          const bookDoc = doc(db, "books", selectedBookId);
+          const bookData = (await getDoc(bookDoc)).data();
+
+          if (bookData) {
+            const archiveDoc = doc(db, "archive", selectedBookId);
+            await setDoc(archiveDoc, bookData);
+            await deleteDoc(bookDoc);
+
+            document.getElementById("yeseditInfo").style.display = "none";
+          } else {
+            alert("Selected book data not found.");
+          }
+        } catch (error) {
+          console.error("Error archiving book: ", error);
+          alert("Failed to archive the book. Please try again.");
+        }
+      } else {
+        alert("No book selected for archiving.");
+      }
+    });
+  }
+});
+
+
+
+
+
+
+
+// Handle image preview and compression
+document.getElementById("img").addEventListener("click", () => {
+  document.getElementById("coverInput").click();
+});
+
+document.getElementById("coverInput").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  const preview = document.getElementById("cover-preview");
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.src = e.target.result;
+
+      img.onload = () => {
+        // Resize the image
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const MAX_WIDTH = 200;
+        const MAX_HEIGHT = 200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Replace preview with resized image
+        const resizedImage = canvas.toDataURL("image/jpeg");
+        preview.src = resizedImage;
+        preview.classList.remove("hidden");
+        document.getElementById("cover-text").classList.add("hidden");
+
+        // Save the image data for upload
+        window.resizedCoverImage = resizedImage;
+      };
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // If no image is uploaded, set a default image
+    preview.classList.remove("hidden");
+    document.getElementById("cover-text").classList.add("hidden");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const viewBookButton = document.getElementById("viewBook");
+  const modalPhoto = document.getElementById("modalPhoto");
+
+  // Function to fetch the book's PDF link from Firestore when the image is clicked
+  modalPhoto.addEventListener("click", async () => {
+    if (!selectedBookId) {
+      alert("No book selected.");
+      return;
+    }
+
+    try {
+      // Get the book data from Firestore using selectedBookId
+      const bookDocRef = doc(db, "books", selectedBookId);
+      const bookSnapshot = await getDoc(bookDocRef);
+
+      if (bookSnapshot.exists()) {
+        const bookData = bookSnapshot.data();
+        console.log("Book data:", bookData); // Debugging line to check book data
+
+        // Get the PDF link from the book document
+        const pdfLink = bookData.pdfLink;
+
+        if (pdfLink) {
+          // Open the PDF link in a new window
+          const newWindow = window.open(pdfLink, "_blank");
+
+          // Check if the window was blocked by a popup blocker
+          if (!newWindow) {
+            alert("Popup blocked. Please allow popups for this site.");
+          }
+        } else {
+          alert("PDF link not available for this book.");
+        }
+      } else {
+        alert("Book data not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching book data:", error);
+      alert("Failed to retrieve book data.");
+    }
+  });
+
+  // Optionally, populate modal photo with the book image
+  if (selectedBookId) {
+    const bookDocRef = doc(db, "books", selectedBookId);
+    getDoc(bookDocRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        const bookData = docSnap.data();
+        modalPhoto.src = bookData.img || "path/to/default-image.jpg"; // Use book image as the modal photo
+      }
+    });
+  }
+});
+
+
+
+
+
+
+// Upload book function with cover image
+// Upload book function with cover image
+async function uploadBook() {
+  try {
+    // Get form data
+    const title = document.getElementById("title").value.trim();
+    const mediaType = document.getElementById("mediaType").value;
+    let authors = document.getElementById("authors").value.trim();
+    const isbn = document.getElementById("isbn").value.trim();
+    const publisher = document.getElementById("publisher").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const strandsCourses = document.getElementById("strandsCourses").value.trim();
+    const category = document.getElementById("category").value;
+    const fullDescription = document.getElementById("fulldescription").value.trim();
+    const year = document.getElementById("year").value.trim();
+    const volume = document.getElementById("volume").value.trim();
+    const pages = document.getElementById("pages").value.trim();
+    const viewCount = "0"; 
+    const uploadedAt = new Date().toISOString();
+
+    // Standardize author name
+    authors = authors.toLowerCase().replace(/^\w/, (c) => c.toUpperCase());
+
+    // Cover Image Upload
+    let coverURL = "../image/image.png";
+    if (mediaType === "Audio / Visuals") {
+      coverURL = "../image/play-button.png";
+    }
+
+    if (window.resizedCoverImage) {
+      const coverBlob = await (await fetch(window.resizedCoverImage)).blob();
+      const coverRef = ref(storage, `books/${Date.now()}_cover.jpg`);
+      await uploadBytes(coverRef, coverBlob);
+      coverURL = await getDownloadURL(coverRef);
+    } else {
+      const defaultImageBlob = await (await fetch(coverURL)).blob();
+      const defaultCoverRef = ref(storage, `books/${Date.now()}_default_cover.jpg`);
+      await uploadBytes(defaultCoverRef, defaultImageBlob);
+      coverURL = await getDownloadURL(defaultCoverRef);
+    }
+
+    // PDF Upload
+    const pdfInput = document.getElementById("pdfLink");
+    let pdfURL = ""; 
+    if (pdfInput.files[0]) {
+      const pdfRef = ref(storage, `books/${Date.now()}_${pdfInput.files[0].name}`);
+      await uploadBytes(pdfRef, pdfInput.files[0]);
+      pdfURL = await getDownloadURL(pdfRef);
+    }
+
+    // Get Current Book Count
+    const booksCollection = collection(db, "books");
+    const bookSnapshot = await getDocs(booksCollection);
+    const bookCount = bookSnapshot.size + 1;
+    const bookId = bookCount.toString();
+
+    // Generate QR Code
+    const qr = qrcode(0, "L");
+    qr.addData(bookId);
+    qr.make();
+    const qrDataUrl = qr.createDataURL();
+
+    // Convert QR Code to Blob and Upload
+    const qrBlob = await (await fetch(qrDataUrl)).blob();
+    const qrRef = ref(storage, `books/${bookId}_qrcode.png`);
+    await uploadBytes(qrRef, qrBlob);
+    const qrURL = await getDownloadURL(qrRef);
+
+    // Book Data
+    const bookData = {
+      title,
+      mediaType,
+      authors,
+      isbn,
+      publisher,
+      subject,
+      strandsCourses,
+      category,
+      fullDescription,
+      year,
+      volume,
+      pages,
+      uploadedAt,
+      bookId,
+      img: coverURL,
+      pdfLink: pdfURL,
+      viewCount,
+      qrCode: qrURL,
+    };
+
+    // Add Book to Firestore
+    const bookRef = doc(booksCollection, bookId);
+    await setDoc(bookRef, bookData);
+
+    alert("Book uploaded successfully!");
+
+  } catch (error) {
+    console.error("Error uploading book:", error);
+    alert("Failed to upload book. Check console for details.");
+  }
+}
+
+
+
+// Handle Media Type Changes
+document.getElementById("mediaType").addEventListener("change", () => {
+  const mediaType = document.getElementById("mediaType").value;
+  const coverInput = document.getElementById("coverInput");
+  const pdfInput = document.getElementById("pdfLink");
+  const coverDiv = document.getElementById("img");
+
+  if (mediaType === "Books" || mediaType === "Journals") {
+    coverInput.disabled = true;
+    pdfInput.disabled = true;
+    coverDiv.classList.add("opacity-50", "cursor-not-allowed");
+    pdfInput.classList.add("opacity-50", "cursor-not-allowed");
+    document.getElementById("cover-preview").classList.add("hidden");
+    document.getElementById("cover-text").classList.remove("hidden");
+    coverInput.value = "";
+    pdfInput.value = "";
+  } else {
+    coverInput.disabled = false;
+    pdfInput.disabled = false;
+    coverDiv.classList.remove("opacity-50", "cursor-not-allowed");
+    pdfInput.classList.remove("opacity-50", "cursor-not-allowed");
+  }
+});
+
+// Add Event Listener for the "ADD" Button
+document.querySelector(".bg-primary").addEventListener("click", (event) => {
+  event.preventDefault();
+  uploadBook();
+});
+
+
+// Cover Image Upload
+let coverURL = "../image/image.png"; // Default image path
+if (mediaType === "Audio / Visuals") {
+  coverURL = "../image/play-button.png"; // Set default image for Audio/Visuals
+}
+
+if (window.resizedCoverImage) {
+  // Upload the resized cover image
+  const coverBlob = await (await fetch(window.resizedCoverImage)).blob();
+  const coverRef = ref(storage, `books/${Date.now()}_cover.jpg`);
+  await uploadBytes(coverRef, coverBlob);
+  coverURL = await getDownloadURL(coverRef);
+} else {
+  // Upload default image to Firebase Storage if no resized image
+  const defaultImageBlob = await (await fetch(coverURL)).blob();
+  const defaultCoverRef = ref(storage, `books/${Date.now()}_default_cover.jpg`);
+  await uploadBytes(defaultCoverRef, defaultImageBlob);
+  coverURL = await getDownloadURL(defaultCoverRef);
+}
+
+
+
+
+
+///////////////////////////////////////////````````````1//////////2222222222222;............STOP.......................STOP ...........
+
+
+
+
+
+
+// Get the modal and the cancel buttons
+const yeseditInfoModal = document.getElementById("yeseditInfo");
+const cancelBtn1 = document.getElementById("yeseditInfocancel");
+const cancelBtn2 = document.getElementById("yeseditInfocancel2");
+
+// Function to close the modal
+function closeModal() {
+  yeseditInfoModal.style.display = "none";
+}
+
+// Add event listeners to the cancel buttons
+cancelBtn1.addEventListener("click", closeModal);
+cancelBtn2.addEventListener("click", closeModal);
+
+// Optional: Add functionality to close the modal when clicking outside of it
+window.addEventListener("click", (event) => {
+  if (event.target === yeseditInfoModal) {
+    closeModal();
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function appendQueryParams(event) {
+  event.preventDefault(); // Prevent default link behavior
+  
+  const uid = 'actualUID'; // Replace with actual UID value
+  const url = new URL(event.target.href);
+  
+  url.searchParams.set('role', 'faculty');
+  url.searchParams.set('uid', uid);
+  
+  // Update the link's href with the new URL
+  event.target.href = url.href;
+
+  // Optionally, navigate to the new URL
+  window.location.href = url.href;
+}
+
+// Add event listener to the link (make sure the selector matches your link)
+document.addEventListener('DOMContentLoaded', () => {
+  const link = document.querySelector('a#your-link-id'); // Replace with actual link selector
+  if (link) {
+    link.addEventListener('click', appendQueryParams);
+  }
+
+  // Read query parameters from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const role = urlParams.get('role');
+  const uid = urlParams.get('uid');
+
+  console.log("Role:", role);
+  console.log("UID:", uid);
+});
+
+
+
+
+
+//refresh of page 
+document.getElementById('refreshLabel').addEventListener('click', function() {
+    location.reload(); // This will refresh the page
+  });
+  </script>
+
+
+</body>
+</html>
